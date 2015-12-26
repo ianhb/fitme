@@ -1,0 +1,13 @@
+db:
+    image: postgres
+    environment:
+        POSTGRES_USER: 810labs
+        POSTGRES_PASSWORD: fitmepass
+web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+        - "8000:8000"
+    links:
+        - db
+
