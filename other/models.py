@@ -16,8 +16,14 @@ class WeightLog(models.Model):
     date_time = models.DateTimeField()
     weight = models.FloatField()
 
+    def __unicode__(self):
+        return str(self.weight)
+
 
 class BodyFatLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
     body_fat = models.FloatField()
+
+    def __unicode__(self):
+        return str(self.body_fat)

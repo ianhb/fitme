@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'fitme.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-if 'POSTGRES_USER' in os.environ:
+if 'DB_ENV_POSTGRES_USER' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Weight{% endblock %}
+
+{% block content %}
+
+    {% if float_error %}
+        <p class="errors">Enter a valid number</p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="weight">New Weight: </label>
+        <input name="weight" id="weight" type="text">
+        <label for="weight">Lb</label>
+        <input type="submit" value="Update">
+    </form>
+
+{% endblock %}

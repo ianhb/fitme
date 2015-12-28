@@ -1,9 +1,11 @@
 db:
+    restart: always
     image: postgres
     environment:
         POSTGRES_USER: 810labs
         POSTGRES_PASSWORD: fitmepass
 web:
+    restart: always
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     ports:

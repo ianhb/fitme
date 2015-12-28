@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Create a New FitMe Account{% endblock %}
+
+{% block content %}
+    <h1>Create an Account</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label for="height_feet">Height:</label>
+        <input name="height_feet" id="height_feet" type="number"><label for="height_feet"> Feet</label>
+        <input name="height_inches" id="height_inches" type="number"><label for="height_inches"> Inches</label> <br>
+        <label for="age">Age: </label><input name="age" id="age" type="number"><br>
+        <input type="submit" value="Create Account">
+    </form>
+
+{% endblock %}
