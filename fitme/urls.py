@@ -17,9 +17,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+import exercise.urls as exerciseurls
+import nutrition.urls as nutritionurls
 import other.urls as otherurls
+import supplementation.urls as supplementurls
+from other import views
 
 urlpatterns = [
+    url(r'^$', views.account_home),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include(otherurls))
+    url(r'^accounts/', include(otherurls)),
+    url(r'^exercise/', include(exerciseurls)),
+    url(r'^nutrition/', include(nutritionurls)),
+    url(r'^supplements/', include(supplementurls)),
 ]

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" rel="stylesheet" href="{% static "base/base.css" %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static "base/menu_bar.css" %}">
+    <script type="text/javascript" src="{% static "base/menu_bar.js" %}"></script>
+
+    <title>
+        {% block title %}{{ pagetitle }}{% endblock %}
+    </title>
+</head>
+<body>
+<div id="sse1">
+    <div id="sses1">
+        <ul>
+            <li><a href="{% url 'exercise_home' %}" maptopuredomain="false">Exercise</a></li>
+            <li><a href="{% url 'nutrition_home' %}">Nutrition</a></li>
+            <li><a href="{% url 'supplement_home' %}">Supplementation</a></li>
+            <li><a href="{% url 'account_home' %}">Profile</a></li>
+        </ul>
+    </div>
+</div>
+{% block content %}{% endblock %}
+</body>
+</html>
