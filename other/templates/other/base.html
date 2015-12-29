@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block sidebar %}
+    <li class="active has-sub"><a><span>Update Profile</span></a>
+        <ul>
+            <li><a href="{% url 'new_weight' %}"><span>Log Weight</span></a></li>
+            <li><a href="{% url 'new_bf' %}"><span>Log Body Fat</span></a></li>
+            <li class="last"><a><span>Change Goals</span></a></li>
+        </ul>
+    </li>
+    <li class="active has-sub last"><a><span>Summaries</span></a>
+        <ul>
+            <li class="has-sub"><a><span>Exercise</span></a>
+                <ul>
+                    <li><a><span>Overview</span></a></li>
+                    <li class="last"><a><span>Progression</span></a></li>
+                </ul>
+            </li>
+            <li class="has-sub"><a><span>Diet</span></a>
+                <ul>
+
+                </ul>
+            </li>
+            <li class="has-sub"><a><span>Supplements</span></a>
+                <ul>
+
+                </ul>
+            </li>
+            <li class="has-sub"><a><span>Weight</span></a>
+                <ul>
+
+                </ul>
+            </li>
+            <li class="has-sub"><a><span>Body Fat</span></a>
+                <ul>
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+{% endblock %}

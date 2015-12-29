@@ -11,6 +11,10 @@ from django.shortcuts import render
 from other.models import FitMeUser, WeightLog, BodyFatLog
 
 
+def account_home(request):
+    return render(request, 'other/home.html')
+
+
 @login_required
 def profile(request):
     user = request.user
@@ -33,7 +37,7 @@ def profile(request):
                'inches': height % 12,
                'age': age}
 
-    return render(request, 'accounts/account.html', context)
+    return render(request, 'other/account.html', context)
 
 
 @login_required
@@ -43,10 +47,10 @@ def new_weight(request):
         try:
             updated_weight = float(updated_weight)
         except ValueError:
-            return render(request, 'accounts/update_weight.html', {'float_error': True})
+            return render(request, 'other/update_weight.html', {'float_error': True})
         WeightLog(weight=updated_weight, user=request.user, date_time=datetime.now()).save()
         return HttpResponseRedirect(reverse(profile))
-    return render(request, 'accounts/update_weight.html')
+    return render(request, 'other/update_weight.html')
 
 
 @login_required
@@ -56,10 +60,10 @@ def new_bf(request):
         try:
             updated_body_fat = float(updated_body_fat)
         except ValueError:
-            return render(request, 'accounts/update_body_fat.html', {'float_error': True})
+            return render(request, 'other/update_body_fat.html', {'float_error': True})
         BodyFatLog(body_fat=updated_body_fat, user=request.user, date_time=datetime.now()).save()
         return HttpResponseRedirect(reverse(profile))
-    return render(request, 'accounts/update_body_fat.html')
+    return render(request, 'other/update_body_fat.html')
 
 
 def create_account(request):
@@ -76,4 +80,4 @@ def create_account(request):
             return HttpResponseRedirect(reverse('profile'))
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/create_account.html', {'form': form})
+    return render(request, 'other/create_account.html', {'form': form})

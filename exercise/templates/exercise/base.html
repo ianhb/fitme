@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block sidebar %}
+    <li class="active has-sub"><a><span>Workouts</span></a>
+        <ul>
+            <li><a><span>My Workouts</span></a></li>
+            <li><a><span>Create Workout</span></a></li>
+            <li><a><span>Track Workout</span></a></li>
+            <li class="last"><a><span>Find Workouts</span></a></li>
+        </ul>
+    </li>
+    <li class="active has-sub"><a><span>Exercises</span></a>
+        <ul>
+            <li><a><span>Chest</span></a></li>
+            <li><a><span>Back</span></a></li>
+            <li><a><span>Legs</span></a></li>
+            <li><a><span>Arms</span></a></li>
+            <li><a><span>Shoulders</span></a></li>
+            <li class="last"><a><span>Abs</span></a></li>
+        </ul>
+    </li>
+    <li class="last"><a><span>Workout Logs</span></a></li>
+{% endblock %}

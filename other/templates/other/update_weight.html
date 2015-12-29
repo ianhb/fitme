@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'other/base.html' %}
 
-{% block title %}Add New Body Fat{% endblock %}
+{% block title %}Add New Weight{% endblock %}
 
 {% block content %}
 
@@ -10,9 +10,9 @@
 
     <form action="" method="post">
         {% csrf_token %}
-        <label for="body_fat">New Body Fat: </label>
-        <input name="body_fat" id="body_fat" type="text">
-        <label for="body_fat">%</label>
+        <label for="weight">New Weight: </label>
+        <input name="weight" id="weight" type="text">
+        <label for="weight">Lb</label>
         <input type="submit" value="Update">
     </form>
 
