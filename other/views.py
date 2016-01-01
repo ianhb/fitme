@@ -16,6 +16,11 @@ def account_home(request):
 
 
 @login_required
+def account_home(request):
+    return HttpResponseRedirect(reverse(profile))
+
+
+@login_required
 def profile(request):
     user = request.user
     weights = WeightLog.objects.filter(user=user).order_by('date_time').reverse()
