@@ -14,12 +14,6 @@ from other.models import FitMeUser, WeightLog, BodyFatLog
 def account_home(request):
     return render(request, 'other/home.html')
 
-
-@login_required
-def account_home(request):
-    return HttpResponseRedirect(reverse(profile))
-
-
 @login_required
 def profile(request):
     user = request.user
