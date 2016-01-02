@@ -8,16 +8,26 @@ from django.db import models
 class MuscleGroup(models.Model):
     name = models.CharField(max_length=100)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Equipment(models.Model):
     name = models.CharField(max_length=100)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=255, name="Name")
+    name = models.CharField(max_length=255)
     muscles_worked = models.ManyToManyField(MuscleGroup)
     description = models.TextField()
     equipment = models.ManyToManyField(Equipment)
+    use_count = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Workout(models.Model):
@@ -27,6 +37,9 @@ class Workout(models.Model):
     exercise_list = models.ManyToManyField(Exercise, through='WorkoutEntry',
                                            through_fields=('workout', 'exercise'))
 
+    def __unicode__(self):
+        return self.name
+
 
 class WorkoutEntry(models.Model):
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
@@ -35,6 +48,10 @@ class WorkoutEntry(models.Model):
     goal_sets = models.IntegerField()
     goal_reps_per_set = models.IntegerField()
     goal_rest = models.IntegerField()
+
+    def __unicode__(self):
+        return "Workout: " + self.workout.name + ", Exercise: " + self.exercise.name + ", Order: " + str(
+                self.order_in_workout)
 
 
 class Regimen(models.Model):

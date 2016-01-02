@@ -3,7 +3,15 @@ from django.contrib import admin
 
 from exercise.models import *
 
-admin.site.register(Exercise)
+
+class ExerciseAdmin(admin.ModelAdmin):
+    fields = ['name',
+              'description',
+              'muscles_worked',
+              'equipment']
+
+
+admin.site.register(Exercise, ExerciseAdmin)
 admin.site.register(Equipment)
 admin.site.register(MuscleGroup)
 admin.site.register(Regimen)

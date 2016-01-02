@@ -3,21 +3,39 @@
 {% block sidebar %}
     <li class="active has-sub"><a><span>Workouts</span></a>
         <ul>
-            <li><a><span>My Workouts</span></a></li>
-            <li><a><span>Create Workout</span></a></li>
-            <li><a><span>Track Workout</span></a></li>
-            <li class="last"><a><span>Find Workouts</span></a></li>
+            <li><a href="{% url 'workout_home' %}"><span>Home</span></a></li>
+            <li><a href="{% url 'my_workouts' %}"><span>My Workouts</span></a></li>
+            <li><a href="{% url 'create_workout' %}"><span>Create Workout</span></a></li>
+            <li><a href="{% url 'record_workout' %}"><span>Record Workout</span></a></li>
+            <li class="last"><a href="{% url 'find_workout' %}"><span>Find Workouts</span></a></li>
         </ul>
     </li>
     <li class="active has-sub"><a><span>Exercises</span></a>
         <ul>
-            <li><a><span>Chest</span></a></li>
-            <li><a><span>Back</span></a></li>
-            <li><a><span>Legs</span></a></li>
-            <li><a><span>Arms</span></a></li>
-            <li><a><span>Shoulders</span></a></li>
-            <li class="last"><a><span>Abs</span></a></li>
+            <li class="has-sub"><a><span>Top Exercises</span></a>
+                <ul>
+                    <li><a href="{% url 'exercises' 'all' 'top' %}"><span>All</span></a></li>
+                    <li><a href="{% url 'exercises' 'chest' 'top' %}"><span>Chest</span></a></li>
+                    <li><a href="{% url 'exercises' 'back' 'top' %}"><span>Back</span></a></li>
+                    <li><a href="{% url 'exercises' 'legs' 'top' %}"><span>Legs</span></a></li>
+                    <li><a href="{% url 'exercises' 'arms' 'top' %}"><span>Arms</span></a></li>
+                    <li><a href="{% url 'exercises' 'shoulders' 'top' %}"><span>Shoulders</span></a></li>
+                    <li class="last"><a href="{% url 'exercises' 'abs' 'top' %}"><span>Abs</span></a></li>
+                </ul>
+            </li>
+            <li class="has-sub"><a><span>All Exercises</span></a>
+                <ul>
+                    <li><a href="{% url 'exercises' 'all' %}"><span>All</span></a></li>
+                    <li><a href="{% url 'exercises' 'chest' %}"><span>Chest</span></a></li>
+                    <li><a href="{% url 'exercises' 'back' %}"><span>Back</span></a></li>
+                    <li><a href="{% url 'exercises' 'legs' %}"><span>Legs</span></a></li>
+                    <li><a href="{% url 'exercises' 'arms' %}"><span>Arms</span></a></li>
+                    <li><a href="{% url 'exercises' 'shoulders' %}"><span>Shoulders</span></a></li>
+                    <li class="last"><a href="{% url 'exercises' 'abs' %}"><span>Abs</span></a></li>
+                </ul>
+            </li>
+            <li class="last"><a href="{% url 'create_exercise' %}"><span>Create Exercise</span></a></li>
         </ul>
     </li>
-    <li class="last"><a><span>Workout Logs</span></a></li>
+    <li class="last"><a href="{% url 'workout_logs' %}"><span>Workout Logs</span></a></li>
 {% endblock %}

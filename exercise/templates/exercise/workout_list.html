@@ -1,0 +1,12 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}My Workouts{% endblock %}
+
+{% block content %}
+    <h3>My Workouts</h3>
+    <ul>
+        {% for workout in workouts %}
+            <li><a href="{% url 'workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
