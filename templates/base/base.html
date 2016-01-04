@@ -9,6 +9,8 @@
     <script type="text/javascript" src="{% static "base/top_menu/menu_bar.js" %}"></script>
     <script type="text/javascript" src="{% static "base/vertical_menu/script.js" %}"></script>
 
+    {% block head %}{% endblock %}
+
     <title>
         {% block title %}{{ pagetitle }}{% endblock %}
     </title>

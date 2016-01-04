@@ -1,0 +1,32 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}Create Exercise{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+        <p class="error">Error Creating Exercise</p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name"><br>
+        <label for="description">Description: </label>
+        <input type="text" name="description" id="description"><br>
+        <p>Muscles Worked: </p>
+        {% for muscle in muscle_groups %}
+            <input type="checkbox" name="muscles_worked" id="muscles_worked{{ forloop.counter }}"
+                   value="{{ muscle.pk }}">
+            <label for="muscles_worked{{ forloop.counter }}">{{ muscle.name|capfirst }}</label>
+        {% endfor %}
+        <p>Equipment Used: </p>
+        {% for piece in equipment %}
+            <input type="checkbox" name="equipment" id="equipment{{ forloop.counter }}" value="{{ piece.pk }}">
+            <label for="equipment{{ forloop.counter }}">{{ piece.name|capfirst }}</label>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Create">
+
+    </form>
+
+{% endblock %}

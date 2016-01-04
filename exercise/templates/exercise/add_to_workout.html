@@ -1,0 +1,23 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}Add {{ exercise.name|capfirst }} to Workout{% endblock %}
+
+
+{% block content %}
+    <label for="workout_select">Workout: </label>
+    <select id="workout_select" name="workout_select" form="add_to_workout">
+        {% for workout in workouts %}
+            <option value="{{ workout.pk }}">{{ workout.name|capfirst }}</option>
+        {% endfor %}
+    </select>
+    <form id="add_to_workout" action="" method="post">
+        {% csrf_token %}
+        <label for="sets">Sets: </label>
+        <input id="sets" name="sets" type="number">
+        <label for="reps">Reps: </label>
+        <input id="reps" name="reps" type="number">
+        <label for="rest">Rest: </label>
+        <input id="rest" name="rest" type="number">
+        <input type="submit" value="Select">
+    </form>
+{% endblock %}

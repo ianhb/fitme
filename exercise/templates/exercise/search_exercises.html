@@ -1,0 +1,37 @@
+{% extends 'exercise/base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="application/javascript" src="{% static "exercise/exercise_search_filter.js" %}">
+    </script>
+{% endblock %}
+
+{% block title %}Search Exercises{% endblock %}
+
+
+{% block content %}
+    <label for="muscle_select">Muscle Group: </label>
+    <select id="muscle_select" name="muscle_select" onchange="onClick({{ exercises_json }})">
+        <option id="all" value="-1">All</option>
+        {% for group in muscle_groups %}
+            <option id="{{ group.pk }}" value="{{ group.pk }}">{{ group.name|capfirst }}</option>
+        {% endfor %}
+    </select>
+    <label for="equipment_select">Equipment: </label>
+    <select id="equipment_select" name="equipment_select" onchange="onClick({{ exercises_json }})">
+        <option id="all" value="-1">All</option>
+        {% for ment in equipment %}
+            <option id="{{ ment.pk }}" value="{{ ment.pk }}">{{ ment.name|capfirst }}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+
+    <ul id="exercise_list">
+
+        {% for exercise in exercises %}
+            <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

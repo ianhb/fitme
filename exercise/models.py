@@ -21,6 +21,7 @@ class Equipment(models.Model):
 
 class Exercise(models.Model):
     name = models.CharField(max_length=255)
+    created_by = models.ForeignKey(User)
     muscles_worked = models.ManyToManyField(MuscleGroup)
     description = models.TextField()
     equipment = models.ManyToManyField(Equipment)

@@ -14,6 +14,7 @@ from other.models import FitMeUser, WeightLog, BodyFatLog
 def account_home(request):
     return render(request, 'other/home.html')
 
+
 @login_required
 def profile(request):
     user = request.user
@@ -63,6 +64,12 @@ def new_bf(request):
         BodyFatLog(body_fat=updated_body_fat, user=request.user, date_time=datetime.now()).save()
         return HttpResponseRedirect(reverse(profile))
     return render(request, 'other/update_body_fat.html')
+
+
+@login_required
+def edit_account(request):
+    # TODO
+    return render(request, 'other/base.html')
 
 
 def create_account(request):

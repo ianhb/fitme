@@ -5,13 +5,34 @@
 {% block content %}
 
     <h3>{{ workout.name|capfirst }}</h3>
-    <h5>{{ workout.user.username|capfirst }}</h5>
-    <h5>{{ workout.date_created }}</h5>
+    <h5>Created By: {{ workout.user.username|capfirst }}</h5>
+    <h5>Created On: {{ workout.date_created }}</h5>
 
-    <ul>
-        {% for exercise in workout.exercise_list.all %}
-            <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
+    <table>
+        <tr>
+            <td>Order</td>
+            <td>Exercise</td>
+            <td>Sets</td>
+            <td>Reps</td>
+            <td>Rest</td>
+            <td>Move Up</td>
+        </tr>
+
+        {% for entry in exercise_entries %}
+            <tr>
+                <td>{{ entry.order_in_workout }}</td>
+                <td><a href="{% url 'exercise_detail' entry.exercise.pk %}">{{ entry.exercise.name|capfirst }}</a></td>
+                <td>{{ entry.goal_sets }}</td>
+                <td>{{ entry.goal_reps_per_set }}</td>
+                <td>{{ entry.goal_rest }}</td>
+                <td><a href="{% url 'move_up' entry.pk %}">Up</a></td>
+            </tr>
         {% endfor %}
-    </ul>
+
+    </table>
+    <p><a href="{% url 'exercise_search' %}">Add Exercises</a></p>
+    <ol>
+
+    </ol>
 
 {% endblock %}

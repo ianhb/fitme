@@ -1,4 +1,8 @@
 {% extends 'base/base.html' %}
+{% load staticfiles %}
+{% block head %}
+    <link type="text/css" rel="stylesheet" href="{% static "exercise/base.css" %}">
+{% endblock %}
 
 {% block sidebar %}
     <li class="active has-sub"><a><span>Workouts</span></a>
@@ -14,26 +18,27 @@
         <ul>
             <li class="has-sub"><a><span>Top Exercises</span></a>
                 <ul>
-                    <li><a href="{% url 'exercises' 'all' 'top' %}"><span>All</span></a></li>
-                    <li><a href="{% url 'exercises' 'chest' 'top' %}"><span>Chest</span></a></li>
-                    <li><a href="{% url 'exercises' 'back' 'top' %}"><span>Back</span></a></li>
-                    <li><a href="{% url 'exercises' 'legs' 'top' %}"><span>Legs</span></a></li>
-                    <li><a href="{% url 'exercises' 'arms' 'top' %}"><span>Arms</span></a></li>
-                    <li><a href="{% url 'exercises' 'shoulders' 'top' %}"><span>Shoulders</span></a></li>
-                    <li class="last"><a href="{% url 'exercises' 'abs' 'top' %}"><span>Abs</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'all' 'top' %}"><span>All</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'chest' 'top' %}"><span>Chest</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'back' 'top' %}"><span>Back</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'legs' 'top' %}"><span>Legs</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'arms' 'top' %}"><span>Arms</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'shoulders' 'top' %}"><span>Shoulders</span></a></li>
+                    <li class="last"><a href="{% url 'list_exercises' 'muscle' 'abs' 'top' %}"><span>Abs</span></a></li>
                 </ul>
             </li>
             <li class="has-sub"><a><span>All Exercises</span></a>
                 <ul>
-                    <li><a href="{% url 'exercises' 'all' %}"><span>All</span></a></li>
-                    <li><a href="{% url 'exercises' 'chest' %}"><span>Chest</span></a></li>
-                    <li><a href="{% url 'exercises' 'back' %}"><span>Back</span></a></li>
-                    <li><a href="{% url 'exercises' 'legs' %}"><span>Legs</span></a></li>
-                    <li><a href="{% url 'exercises' 'arms' %}"><span>Arms</span></a></li>
-                    <li><a href="{% url 'exercises' 'shoulders' %}"><span>Shoulders</span></a></li>
-                    <li class="last"><a href="{% url 'exercises' 'abs' %}"><span>Abs</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'all' %}"><span>All</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'chest' %}"><span>Chest</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'back' %}"><span>Back</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'legs' %}"><span>Legs</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'arms' %}"><span>Arms</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'shoulders' %}"><span>Shoulders</span></a></li>
+                    <li class="last"><a href="{% url 'list_exercises' 'muscle' 'abs' %}"><span>Abs</span></a></li>
                 </ul>
             </li>
+            <li><a href="{% url 'exercise_search' %}"><span>Search Exercises</span></a></li>
             <li class="last"><a href="{% url 'create_exercise' %}"><span>Create Exercise</span></a></li>
         </ul>
     </li>

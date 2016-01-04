@@ -3,15 +3,14 @@
 {% block title %}{{ user.username }}'s FitMe Account{% endblock %}
 {% block content %}
 
-    <p>Welcome {{ user.username }}</p>
-    <p>Your name is {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Welcome {{ user.username|capfirst }}</p>
+    <p>Your name is {{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</p>
     <p>
         {% if current_weight %}
             Current Weight: {{ current_weight }} lb
         {% else %}
             No Weight Logged
         {% endif %}
-        <a href="{% url 'new_weight' %}">Update Weight</a>
     </p>
     <p>
         {% if current_body_fat %}
@@ -19,7 +18,6 @@
         {% else %}
             No Body Fat Logged
         {% endif %}
-        <a href="{% url 'new_bf' %}">Update Body Fat</a>
     </p>
     <p>Age: {{ age }}</p>
     <p>Height: {{ feet }} ft {{ inches }} inches</p>

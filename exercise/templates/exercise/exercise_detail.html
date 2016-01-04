@@ -1,0 +1,33 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}{{ exercise.name|capfirst }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>{{ exercise.name|capfirst }}</h3>
+
+        <div>
+            <h5>Muscle Group:</h5>
+            {% for group in exercise.muscles_worked.all %}
+                <a href="{% url 'list_exercises' 'muscle' group.name 'all' %}">{{ group.name|capfirst }}</a>
+            {% endfor %}
+        </div>
+        <div>
+            <h5>Equipment:</h5>
+            {% for ment in exercise.equipment.all %}
+                <a href="{% url 'list_exercises' 'equipment' ment.name 'all' %}">{{ ment.name|capfirst }}</a>
+            {% endfor %}
+        </div>
+
+        <br>
+        <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
+
+    </div>
+
+    <p>{{ exercise.description|capfirst }}</p>
+
+
+
+
+
+{% endblock %}
