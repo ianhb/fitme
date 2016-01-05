@@ -63,21 +63,26 @@ class Regimen(models.Model):
     workouts = models.ManyToManyField(Workout)
 
 
-class ExerciseLog(models.Model):
+class WorkoutLog(models.Model):
     user = models.ForeignKey(User)
     date_started = models.DateTimeField()
     date_ended = models.DateTimeField()
     workout = models.ForeignKey(Workout)
 
+    def __unicode__(self):
+        return self.user.username + "_" + self.workout.name + "_" + \
+               str(self.date_started.strftime('%m-%d-%y-%I-%M')) + " to " + str(
+            self.date_ended.strftime('%m-%d-%y-%I-%M'))
 
-class ExerciseEntry(models.Model):
-    log = models.ForeignKey(ExerciseLog, on_delete=models.CASCADE)
+
+class ExerciseLog(models.Model):
+    log = models.ForeignKey(WorkoutLog, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise)
     order = models.IntegerField()
 
 
-class ExerciseLine(models.Model):
-    log_entry = models.ForeignKey(ExerciseEntry, on_delete=models.CASCADE)
+class SetLog(models.Model):
+    log_entry = models.ForeignKey(ExerciseLog, on_delete=models.CASCADE)
     weight = models.IntegerField()
     reps = models.IntegerField()
     rest = models.IntegerField()

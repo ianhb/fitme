@@ -15,13 +15,14 @@
         <input type="text" name="description" id="description"><br>
         <p>Muscles Worked: </p>
         {% for muscle in muscle_groups %}
-            <input type="checkbox" name="muscles_worked" id="muscles_worked{{ forloop.counter }}"
+            <input type="checkbox" name="muscles_worked{{ muscle.pk }}" id="muscles_worked{{ forloop.counter }}"
                    value="{{ muscle.pk }}">
             <label for="muscles_worked{{ forloop.counter }}">{{ muscle.name|capfirst }}</label>
         {% endfor %}
         <p>Equipment Used: </p>
         {% for piece in equipment %}
-            <input type="checkbox" name="equipment" id="equipment{{ forloop.counter }}" value="{{ piece.pk }}">
+            <input type="checkbox" name="equipment{{ piece.pk }}" id="equipment{{ forloop.counter }}"
+                   value="{{ piece.pk }}">
             <label for="equipment{{ forloop.counter }}">{{ piece.name|capfirst }}</label>
         {% endfor %}
         <br>

@@ -1,0 +1,36 @@
+{% extends 'exercise/base.html' %}
+{% load my_filters %}
+
+{% block title %}Log Workout{% endblock %}
+
+{% block content %}
+
+    <h3>Log {{ workout.name|capfirst }}</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for entry in entries %}
+            <h4>{{ entry.exercise.name|capfirst }}</h4>
+            <table>
+                <tr>
+                    <td>Set</td>
+                    <td>Weight</td>
+                    <td>Reps</td>
+                    <td>Rest</td>
+                </tr>
+                {% for set in entry.goal_sets|times %}
+                    <tr>
+                        <td>{{ set }}</td>
+                        <td><input name="{{ entry.pk }}_{{ set }}_weight" type="number" title="Set {{ set }} Weight">
+                        </td>
+                        <td><input name="{{ entry.pk }}_{{ set }}_reps" type="number" title="Set {{ set }} Reps"
+                                   value="{{ entry.goal_reps_per_set }}"></td>
+                        <td><input name="{{ entry.pk }}_{{ set }}_rest" type="number" title="Set {{ set }} Rest"
+                                   value="{{ entry.goal_rest }}"></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+        <input type="submit" value="Log">
+    </form>
+
+{% endblock %}

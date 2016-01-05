@@ -1,4 +1,5 @@
 # Create your views here.
+import datetime
 import json
 
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-from exercise.models import Workout, Exercise, MuscleGroup, Equipment, WorkoutEntry
+from exercise.models import Workout, Exercise, MuscleGroup, Equipment, WorkoutEntry, WorkoutLog, ExerciseLog, SetLog
 
 
 def illegal_access():
@@ -54,9 +55,44 @@ def create_workout(request):
 
 
 @login_required
-def record_workout(request):
+def record_workout(request, pk=None):
     # TODO
-    return render(request, 'exercise/base.html')
+
+    if pk is None:
+        return render(request, 'exercise/select_logged_workout.html',
+                      {'workouts': Workout.objects.filter(user=request.user)})
+
+    workout = get_object_or_404(Workout, pk=pk)
+    entries = WorkoutEntry.objects.filter(workout=workout)
+
+    if request.method == 'POST':
+        workout_log = WorkoutLog(user=request.user, workout=workout)
+        workout_log.date_started = datetime.datetime.utcnow()
+        workout_log.date_ended = datetime.datetime.utcnow()
+        workout_log.save()
+        for key, value in request.POST.iteritems():
+            print key + " " + value
+        for entry in entries:
+            exercise_log = ExerciseLog(exercise=entry.exercise, log=workout_log, order=entry.order_in_workout)
+            exercise_log.save()
+            for i in range(entry.goal_sets):
+                form_key = str(entry.pk) + "_" + str(i + 1) + "_"
+                weight = request.POST[form_key + 'weight']
+                reps = request.POST[form_key + 'reps']
+                rest = request.POST[form_key + 'rest']
+                if weight is None or reps is None or rest is None:
+                    continue
+                set = SetLog(weight=weight, reps=reps, rest=rest, log_entry=exercise_log)
+                set.save()
+
+        return HttpResponseRedirect(reverse('workout_logs'))
+
+    context = {
+        'workout': workout,
+        'entries': entries
+    }
+
+    return render(request, 'exercise/log_workout.html', context)
 
 
 def find_workouts(request):
@@ -166,17 +202,15 @@ def create_exercise(request):
     # TODO
     if request.method == 'POST':
         name = request.POST['name']
-        muscles_worked = request.POST['muscles_worked']
         description = request.POST['description']
-        equipment = request.POST['equipment']
         exercise = Exercise(name=name, description=description, created_by=request.user)
         exercise.save()
-        for group in muscles_worked:
-            muscle_group = get_object_or_404(MuscleGroup, pk=group)
-            exercise.muscles_worked.add(muscle_group)
-        for equip in equipment:
-            equipment_piece = get_object_or_404(Equipment, pk=equip)
-            exercise.equipment.add(equipment_piece)
+        for group in MuscleGroup.objects.all():
+            if request.POST.get('muscles_worked' + str(group.pk)) is not None:
+                exercise.muscles_worked.add(group)
+        for equip in Equipment.objects.all():
+            if request.POST.get('equipment' + str(equip.pk)) is not None:
+                exercise.equipment.add(equip)
         return HttpResponseRedirect(reverse('exercise_detail', kwargs={'pk': exercise.pk}))
 
     context = {'muscle_groups': MuscleGroup.objects.all(),
@@ -185,6 +219,22 @@ def create_exercise(request):
 
 
 @login_required
-def workout_logs(request):
+def log_list(request):
     # TODO
-    return render(request, 'exercise/base.html')
+    context = {'logs': WorkoutLog.objects.filter(user=request.user)}
+    return render(request, 'exercise/log_list.html', context)
+
+
+@login_required
+def log_detail(request, pk):
+    # TODO
+
+    log = get_object_or_404(WorkoutLog, pk=pk)
+
+    context = {
+        'log': log,
+        'exercises': log.exerciselog_set.all(),
+
+    }
+
+    return render(request, 'exercise/log_detail.html', context)

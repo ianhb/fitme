@@ -1,0 +1,12 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}Select Workout to Log{% endblock %}
+
+{% block content %}
+    <h5>Select Workout</h5>
+    <ul>
+        {% for workout in workouts %}
+            <li><a href="{% url 'record_workout' workout.pk %}">{{ workout.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

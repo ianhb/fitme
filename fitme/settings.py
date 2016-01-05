@@ -66,6 +66,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'exercise_tags': 'exercise.templatetags.my_filters'
+            },
         },
     },
 ]

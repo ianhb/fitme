@@ -1,0 +1,13 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}Select Log{% endblock %}
+
+{% block content %}
+    <h3>Select Log to View</h3>
+    <ul>
+        {% for log in logs %}
+            <li><a href="{% url 'workout_log_detail' log.pk %}">
+                {{ log.workout|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

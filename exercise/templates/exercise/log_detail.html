@@ -1,0 +1,26 @@
+{% extends 'exercise/base.html' %}
+{% load my_filters %}
+
+{% block title %}
+    {{ log.workout.name|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}
+{% endblock %}
+
+{% block content %}
+
+    <h3>{{ log.workout.name|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}</h3>
+    <ol>
+        {% for exercise in exercises %}
+            <li>
+                <p>{{ exercise.exercise.name|capfirst }}</p>
+                <ol>
+                    {% for set in exercise|get_sets %}
+                        <li>
+                            <p>Set {{ forloop.counter }}: {{ set.weight }}x{{ set.reps }} Rest: {{ set.rest }}</p>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}
