@@ -11,6 +11,7 @@ class ExerciseAdmin(admin.ModelAdmin):
               'muscles_worked',
               'equipment',
               'created_by']
+    ordering = ('name',)
 
 
 class ExerciseInline(admin.TabularInline):

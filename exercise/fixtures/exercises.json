@@ -1,0 +1,604 @@
+[
+  {
+    "model": "exercise.exercise",
+    "pk": 1,
+    "fields": {
+      "name": "Barbell Bench Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 2,
+    "fields": {
+      "name": "Dumbbell Bench Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 3,
+    "fields": {
+      "name": "Dumbbell Incline Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 4,
+    "fields": {
+      "name": "Barbell Incline Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 5,
+    "fields": {
+      "name": "Dumbbell Fly",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 6,
+    "fields": {
+      "name": "Dumbbell Incline Fly",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 7,
+    "fields": {
+      "name": "Cable Crossover",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 8,
+    "fields": {
+      "name": "Barbell Decline Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 9,
+    "fields": {
+      "name": "Dumbbell Decline Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 10,
+    "fields": {
+      "name": "Dumbbell Decline Fly",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 11,
+    "fields": {
+      "name": "Cable Lower Chest Fly",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 12,
+    "fields": {
+      "name": "Dumbbell Hammer Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 13,
+    "fields": {
+      "name": "Cable Upper Chest Fly",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 14,
+    "fields": {
+      "name": "Barbell Deadlift",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2,
+        7,
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 15,
+    "fields": {
+      "name": "Barbell Bent Over Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 16,
+    "fields": {
+      "name": "Cable Seated Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 17,
+    "fields": {
+      "name": "Dumbbell One Arm Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 18,
+    "fields": {
+      "name": "Dumbbell Bent Over Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 19,
+    "fields": {
+      "name": "Barbell T-bar Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 20,
+    "fields": {
+      "name": "Cable Straight Arm Pushdown",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 21,
+    "fields": {
+      "name": "Barbell Good Morning",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 22,
+    "fields": {
+      "name": "Cable One Arm Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 23,
+    "fields": {
+      "name": "Lat Pulldown",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 24,
+    "fields": {
+      "name": "Barbell Clean",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2,
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 25,
+    "fields": {
+      "name": "Barbell Clean and Jerk",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2,
+        8,
+        9
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 26,
+    "fields": {
+      "name": "Dumbbell Lateral Raise",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 27,
+    "fields": {
+      "name": "Dumbbell Front Raise",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 28,
+    "fields": {
+      "name": "Dumbbell Shrug",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 29,
+    "fields": {
+      "name": "Barbell Shrug",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 30,
+    "fields": {
+      "name": "Dumbbell Shoulder Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 31,
+    "fields": {
+      "name": "Barbell Military Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 32,
+    "fields": {
+      "name": "Barbell Upright Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 33,
+    "fields": {
+      "name": "Dumbbell Upright Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        9
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 34,
+    "fields": {
+      "name": "Barbell Front Squat",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        6,
+        7,
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 35,
+    "fields": {
+      "name": "Barbell Back Squat",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        6,
+        7,
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 36,
+    "fields": {
+      "name": "Barbell Lunge",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        6,
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 37,
+    "fields": {
+      "name": "Barbell Glute Bridge",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  }
+]

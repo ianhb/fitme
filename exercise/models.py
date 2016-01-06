@@ -23,7 +23,7 @@ class Exercise(models.Model):
     name = models.CharField(max_length=255)
     created_by = models.ForeignKey(User)
     muscles_worked = models.ManyToManyField(MuscleGroup)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     equipment = models.ManyToManyField(Equipment)
     use_count = models.IntegerField(default=0)
 

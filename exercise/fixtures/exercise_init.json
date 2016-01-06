@@ -1,0 +1,107 @@
+[
+  {
+    "model": "exercise.musclegroup",
+    "pk": 1,
+    "fields": {
+      "name": "chest"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 2,
+    "fields": {
+      "name": "back"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 3,
+    "fields": {
+      "name": "biceps"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 4,
+    "fields": {
+      "name": "triceps"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 5,
+    "fields": {
+      "name": "abs"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 6,
+    "fields": {
+      "name": "quads"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 7,
+    "fields": {
+      "name": "hamstrings"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 8,
+    "fields": {
+      "name": "glutes"
+    }
+  },
+  {
+    "model": "exercise.musclegroup",
+    "pk": 9,
+    "fields": {
+      "name": "shoulders"
+    }
+  },
+  {
+    "model": "exercise.equipment",
+    "pk": 1,
+    "fields": {
+      "name": "barbell"
+    }
+  },
+  {
+    "model": "exercise.equipment",
+    "pk": 2,
+    "fields": {
+      "name": "dumbbell"
+    }
+  },
+  {
+    "model": "exercise.equipment",
+    "pk": 3,
+    "fields": {
+      "name": "cable"
+    }
+  },
+  {
+    "model": "exercise.equipment",
+    "pk": 4,
+    "fields": {
+      "name": "machine"
+    }
+  },
+  {
+    "model": "exercise.equipment",
+    "pk": 5,
+    "fields": {
+      "name": "body weight"
+    }
+  },
+  {
+    "model": "exercise.equipment",
+    "pk": 6,
+    "fields": {
+      "name": "weight plate"
+    }
+  }
+]
