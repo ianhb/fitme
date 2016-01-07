@@ -1,0 +1,14 @@
+{% extends 'supplementation/base.html' %}
+
+{% block title %}Supplement List{% endblock %}
+
+{% block content %}
+
+    <h3>All Supplements</h3>
+    <ul>
+    {% for supplement in supplements %}
+        <li><a href="{% url 'supplement_detail' supplement.pk %}">{{ supplement.name|capfirst }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

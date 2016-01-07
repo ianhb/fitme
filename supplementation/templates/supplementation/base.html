@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% load supplement_tags %}
+{% block head %}
+    <link type="text/css" rel="stylesheet" href="{% static "supplementation/base.css" %}">
+{% endblock %}
+
+{% block sidebar %}
+
+    <li class="active"><a><span>Home</span></a></li>
+    <li class="active"><a href="{% url 'create_supplement' %}"><span>Add Supplement To List</span></a></li>
+    {% get_supplement_categories as categories %}
+    <li class="active has-sub"><a><span>Categories</span></a>
+        <ul>
+                <li><a href="{% url 'supplement_list' %}"><span>All</span></a></li>
+        {% for category in categories %}
+            {% if forloop.last %}
+                <li class="last"><a href="{% url 'supplement_category_detail' category.pk %}">{{ category.name|capfirst }}</a></li>
+            {% else %}
+                <li><a href="{% url 'supplement_category_detail' category.pk %}">{{ category.name|capfirst }}</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </li>
+    <li class="active"><a href="{% url 'search_supplements' %}"><span>Search</span></a></li>
+    <li class="active has-sub last"><a><span>Logs</span></a>
+        <ul>
+            <li><a href="{% url 'choose_supplement_to_log' %}"><span>Log New Supplement</span></a></li>
+            <li class="last"><a href="{% url 'my_supplements' %}"><span>My Supplements</span></a></li>
+        </ul>
+    </li>
+
+{% endblock %}

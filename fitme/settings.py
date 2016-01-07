@@ -67,7 +67,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'exercise_tags': 'exercise.templatetags.my_filters'
+                'exercise_tags': 'exercise.templatetags.exercise_tags',
+                'supplement_tags': 'supplementation.templatetags.supplement_tags'
             },
         },
     },
@@ -135,3 +136,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

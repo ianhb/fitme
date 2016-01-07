@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load staticfiles %}
+{% load  exercise_tags%}
 {% block head %}
     <link type="text/css" rel="stylesheet" href="{% static "exercise/base.css" %}">
 {% endblock %}
@@ -10,32 +11,35 @@
             <li><a href="{% url 'workout_home' %}"><span>Home</span></a></li>
             <li><a href="{% url 'my_workouts' %}"><span>My Workouts</span></a></li>
             <li><a href="{% url 'create_workout' %}"><span>Create Workout</span></a></li>
-            <li><a href="{% url 'record_workout' %}"><span>Record Workout</span></a></li>
+            <li><a href="{% url 'choose_workout_to_log' %}"><span>Record Workout</span></a></li>
             <li class="last"><a href="{% url 'find_workout' %}"><span>Find Workouts</span></a></li>
         </ul>
     </li>
     <li class="active has-sub"><a><span>Exercises</span></a>
         <ul>
+            {% get_muscle_groups as muscle_groups %}
             <li class="has-sub"><a><span>Top Exercises</span></a>
                 <ul>
                     <li><a href="{% url 'list_exercises' 'muscle' 'all' 'top' %}"><span>All</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'chest' 'top' %}"><span>Chest</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'back' 'top' %}"><span>Back</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'legs' 'top' %}"><span>Legs</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'arms' 'top' %}"><span>Arms</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'shoulders' 'top' %}"><span>Shoulders</span></a></li>
-                    <li class="last"><a href="{% url 'list_exercises' 'muscle' 'abs' 'top' %}"><span>Abs</span></a></li>
+                    {% for group in muscle_groups %}
+                        {% if forloop.last %}
+                            <li class="last"><a href="{% url 'list_exercises' 'muscle' group.name 'top' %}"><span>{{ group.name|capfirst }}</span></a></li>
+                        {% else %}
+                            <li><a href="{% url 'list_exercises' 'muscle' group.name 'top' %}"><span>{{ group.name|capfirst }}</span></a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </li>
             <li class="has-sub"><a><span>All Exercises</span></a>
                 <ul>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'all' %}"><span>All</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'chest' %}"><span>Chest</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'back' %}"><span>Back</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'legs' %}"><span>Legs</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'arms' %}"><span>Arms</span></a></li>
-                    <li><a href="{% url 'list_exercises' 'muscle' 'shoulders' %}"><span>Shoulders</span></a></li>
-                    <li class="last"><a href="{% url 'list_exercises' 'muscle' 'abs' %}"><span>Abs</span></a></li>
+                    <li><a href="{% url 'list_exercises' 'muscle' 'all' 'all' %}"><span>All</span></a></li>
+                    {% for group in muscle_groups %}
+                        {% if forloop.last %}
+                            <li class="last"><a href="{% url 'list_exercises' 'muscle' group.name 'all' %}"><span>{{ group.name|capfirst }}</span></a></li>
+                        {% else %}
+                            <li><a href="{% url 'list_exercises' 'muscle' group.name 'all' %}"><span>{{ group.name|capfirst }}</span></a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </li>
             <li><a href="{% url 'exercise_search' %}"><span>Search Exercises</span></a></li>

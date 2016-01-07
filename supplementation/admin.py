@@ -6,3 +6,4 @@ from supplementation.models import *
 admin.site.register(Supplement)
 admin.site.register(ServingSize)
 admin.site.register(SupplementLog)
+admin.site.register(SupplementCategory)

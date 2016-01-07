@@ -10,11 +10,18 @@ class ServingSize(models.Model):
     description = models.TextField()
 
 
+class SupplementCategory(models.Model):
+    name = models.CharField(max_length=64)
+
+
 class Supplement(models.Model):
     name = models.CharField(max_length=255)
+    category = models.ForeignKey(SupplementCategory)
     barcode = models.IntegerField(default=0)
+    label = models.ImageField(default=None, upload_to="/images/supplement_labels/")
     description = models.TextField()
-    serving_sizes = models.ManyToManyField(ServingSize)
+    serving_sizes = models.ForeignKey(ServingSize)
+    use_count = models.IntegerField(default=0)
 
 
 class SupplementLog(models.Model):
