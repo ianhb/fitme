@@ -11,18 +11,17 @@ exercise_list_urls = [
 
 urlpatterns = [
     url(r'^$', views.exercise_home, name='exercise_home'),
-    url(r'^workout_home/$', views.workout_home, name='workout_home'),
     url(r'^my_workouts/$', views.my_workouts, name='my_workouts'),
     url(r'^workout/(?P<pk>[0-9]+)/', views.workout_detail, name='workout_detail'),
     url(r'^create_workout/$', views.create_workout, name='create_workout'),
     url(r'^record_workout/$', views.record_workout, name='choose_workout_to_log'),
     url(r'^record_workout/(?P<pk>[0-9]+)/', views.record_workout, name='record_workout'),
-    url(r'^find_workout/$', views.find_workouts, name='find_workout'),
+    url(r'^search/workout/$', views.search_workout, name='workout_search'),
     url(r'^add_to_workout/(?P<pk>[0-9]+)/', views.add_to_workout, name='add_to_workout'),
     url(r'^move_up/(?P<pk>[0-9]+)/', views.move_exercise_up, name='move_up'),
 
     url(r'^list/', include(exercise_list_urls)),
-    url(r'^search/', views.search_exercises, name='exercise_search'),
+    url(r'^search/exercise/', views.search_exercises, name='exercise_search'),
     url(r'^exercise/(?P<pk>[0-9]+)/', views.exercise_detail, name='exercise_detail'),
     url(r'^create_exercise/$', views.create_exercise, name='create_exercise'),
 

@@ -23,7 +23,6 @@ function onClick(exercises) {
             }
         }
     }
-    console.log(filtered_exercises);
     var list = $('#exercise_list');
     list.find('li').remove();
     list = document.getElementById('exercise_list');

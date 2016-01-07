@@ -1,6 +1,6 @@
 from django.template import Library
 
-from exercise.models import SetLog, MuscleGroup
+from exercise.models import SetLog, MuscleGroup, Equipment
 
 register = Library()
 
@@ -19,3 +19,7 @@ def get_sets(entry):
 def get_muscle_groups():
     return MuscleGroup.objects.all()
 
+
+@register.simple_tag
+def get_equipment():
+    return Equipment.objects.all()

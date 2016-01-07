@@ -1,1 +1,14 @@
 {% extends 'supplementation/base.html'%}
+
+{% block title %}
+    {{ category.name|capfirst }}s
+{% endblock %}
+
+{% block content %}
+    <h3>{{ category.name|capfirst }}s</h3>
+    <ul>
+        {% for supp in supplements %}
+            <li><a href="{% url 'supplement_detail' supp.pk %}">{{ supp.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

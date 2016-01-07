@@ -35,6 +35,8 @@ class Workout(models.Model):
     user = models.ForeignKey(User)
     name = models.CharField(max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
+    public = models.BooleanField(default=False)
+    log_count = models.IntegerField(default=0)
     exercise_list = models.ManyToManyField(Exercise, through='WorkoutEntry',
                                            through_fields=('workout', 'exercise'))
 

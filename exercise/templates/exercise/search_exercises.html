@@ -1,5 +1,6 @@
 {% extends 'exercise/base.html' %}
 {% load staticfiles %}
+{% load exercise_tags %}
 
 {% block head %}
     <script type="application/javascript" src="{% static "exercise/exercise_search_filter.js" %}">
@@ -10,6 +11,7 @@
 
 
 {% block content %}
+    {% get_muscle_groups as muscle_groups %}
     <label for="muscle_select">Muscle Group: </label>
     <select id="muscle_select" name="muscle_select" onchange="onClick({{ exercises_json }})">
         <option id="all" value="-1">All</option>
@@ -17,6 +19,7 @@
             <option id="{{ group.pk }}" value="{{ group.pk }}">{{ group.name|capfirst }}</option>
         {% endfor %}
     </select>
+    {% get_equipment as equipment %}
     <label for="equipment_select">Equipment: </label>
     <select id="equipment_select" name="equipment_select" onchange="onClick({{ exercises_json }})">
         <option id="all" value="-1">All</option>

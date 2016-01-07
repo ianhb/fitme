@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block sidebar %}
+    <li class="active"><a href="{% url 'exercise_home' %}">Home</a></li>
     <li class="active has-sub"><a><span>Workouts</span></a>
         <ul>
-            <li><a href="{% url 'workout_home' %}"><span>Home</span></a></li>
             <li><a href="{% url 'my_workouts' %}"><span>My Workouts</span></a></li>
             <li><a href="{% url 'create_workout' %}"><span>Create Workout</span></a></li>
             <li><a href="{% url 'choose_workout_to_log' %}"><span>Record Workout</span></a></li>
-            <li class="last"><a href="{% url 'find_workout' %}"><span>Find Workouts</span></a></li>
+            <li class="last"><a href="{% url 'workout_search' %}"><span>Find Workouts</span></a></li>
         </ul>
     </li>
     <li class="active has-sub"><a><span>Exercises</span></a>

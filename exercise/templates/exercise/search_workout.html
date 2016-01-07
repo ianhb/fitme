@@ -1,0 +1,34 @@
+{% extends 'exercise/base.html' %}
+{% load staticfiles %}
+{% load exercise_tags %}
+
+{% block head %}
+    <script type="application/javascript" src="{% static "exercise/workout_search_filter.js" %}">
+    </script>
+{% endblock %}
+
+{% block title %}Find Workouts{% endblock %}
+
+{% block content %}
+    {% get_muscle_groups as muscle_groups %}
+
+    <h3>Find Workout</h3>
+
+    <label for="name_search">Name: </label>
+    <input name="name_search" id="name_search" type="text" oninput="onClick({{ workout_json }})">
+
+    <p>Muscles Worked</p>
+    {% for group in muscle_groups %}
+        <label for="muscle{{ forloop.counter }}">{{ group.name|capfirst }}</label>
+        <input class="muscle_box" id="muscle{{ forloop.counter }}" value="{{ group.pk }}"
+               name="muscle{{ group.pk }}" type="checkbox" onchange="onClick({{ workout_json }})" checked="checked">
+    {% endfor %}
+
+    <ul id="workout_list">
+        {% for workout in workouts %}
+            <li><a href="{% url 'workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

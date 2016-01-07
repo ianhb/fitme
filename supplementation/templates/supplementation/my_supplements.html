@@ -1,1 +1,28 @@
 {% extends 'supplementation/base.html' %}
+
+{% block title %}My Supplements{% endblock %}
+
+{% block content %}
+    <h3>My Supplements</h3>
+    <h4>Current Supplements</h4>
+    <ul>
+        {% for supp in current_supps %}
+            <li>
+                <a href="{% url 'supplement_detail' supp.supplement.pk %}">{{ supp.supplement.name|capfirst }}</a>
+                Started: {{ supp.date_started|date }}
+                <a href="{% url 'supplement_log_end' supp.pk %}">No Longer Used</a>
+                <a href="{% url 'supplement_set_log_end' supp.pk %}">Set End Date</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h4>Past Supplements</h4>
+    <ul>
+        {% for supp in past_supps %}
+            <li><a href="{% url 'supplement_detail' supp.supplement.pk %}">{{ supp.supplement.name|capfirst }}</a>
+                Started: {{ supp.date_started|date }} Ended: {{ supp.date_ended|date }}</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

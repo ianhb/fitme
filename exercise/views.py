@@ -20,12 +20,6 @@ def exercise_home(request):
     return render(request, 'exercise/base.html')
 
 
-@login_required
-def workout_home(request):
-    # TODO
-    return render(request, 'exercise/base.html')
-
-
 def workout_detail(request, pk):
     # TODO
     workout = get_object_or_404(Workout, pk=pk)
@@ -47,7 +41,7 @@ def create_workout(request):
     # TODO
     if request.method == 'POST':
         name = request.POST['name']
-        workout = Workout(name=name, user=request.user)
+        workout = Workout(name=name, user=request.user, public=(request.POST['public'] is not None))
         workout.save()
         return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': workout.pk}))
 
@@ -84,6 +78,8 @@ def record_workout(request, pk=None):
                     continue
                 set = SetLog(weight=weight, reps=reps, rest=rest, log_entry=exercise_log)
                 set.save()
+        workout.log_count += 1
+        workout.save()
 
         return HttpResponseRedirect(reverse('workout_logs'))
 
@@ -95,9 +91,27 @@ def record_workout(request, pk=None):
     return render(request, 'exercise/log_workout.html', context)
 
 
-def find_workouts(request):
+def search_workout(request):
     # TODO
-    return render(request, 'exercise/base.html')
+
+    workouts = Workout.objects.filter(public=True).order_by('log_count')
+    workout_list = list(workouts.values('pk', 'name', 'date_created', 'log_count'))
+    for workout in workout_list:
+        exercises = WorkoutEntry.objects.filter(workout=workout['pk'])
+        muscle_pks = []
+        for exercise in exercises:
+            for muscle in exercise.exercise.muscles_worked.all():
+                if muscle.pk not in muscle_pks:
+                    muscle_pks.append(muscle.pk)
+        workout['muscles_worked'] = muscle_pks
+    workout_json = json.dumps(workout_list, cls=DjangoJSONEncoder)
+
+    context = {
+        'workouts': workouts,
+        'workout_json': workout_json
+    }
+
+    return render(request, 'exercise/search_workout.html', context)
 
 
 def add_ex_to_workout(exercise, workout, sets, reps, rest):
@@ -148,18 +162,10 @@ def search_exercises(request):
     exercises_json = json.dumps(list(exercises.values('pk', 'name', 'muscles_worked', 'equipment')),
                                 cls=DjangoJSONEncoder)
 
-    muscles = MuscleGroup.objects.all()
-    muscles_json = json.dumps(list(muscles.values('pk', 'name')), cls=DjangoJSONEncoder)
-
-    equipment = Equipment.objects.all()
-    equipment_json = json.dumps(list(equipment.values('pk', 'name')), cls=DjangoJSONEncoder)
-
-    context = {'exercises': exercises,
-               'muscle_groups': muscles,
-               'equipment': equipment,
-               'exercises_json': exercises_json,
-               'muscle_json': muscles_json,
-               'equipment_json': equipment_json}
+    context = {
+        'exercises': exercises,
+        'exercises_json': exercises_json
+    }
 
     return render(request, 'exercise/search_exercises.html', context)
 
