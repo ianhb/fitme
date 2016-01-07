@@ -1,0 +1,51 @@
+[
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Creatine"
+    }
+  },
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Protein"
+    }
+  },
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Pre-Workout"
+    }
+  },
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Fat Burner"
+    }
+  },
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 5,
+    "fields": {
+      "name": "BCAA"
+    }
+  },
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 6,
+    "fields": {
+      "name": "Post-Workout"
+    }
+  },
+  {
+    "model": "supplementation.supplementcategory",
+    "pk": 7,
+    "fields": {
+      "name": "Vitamin"
+    }
+  }
+]

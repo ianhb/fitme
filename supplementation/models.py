@@ -12,9 +12,17 @@ class SupplementCategory(models.Model):
         return self.name
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Supplement(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(SupplementCategory)
+    brand = models.ForeignKey(Brand)
     barcode = models.IntegerField(default=0)
     label = models.ImageField(default=None, upload_to="/images/supplement_labels/", blank=True)
     description = models.TextField(blank=True)

@@ -1,0 +1,44 @@
+[
+  {
+    "model": "supplementation.brand",
+    "pk": 1,
+    "fields": {
+      "name": "Optimum Nutrition"
+    }
+  },
+  {
+    "model": "supplementation.brand",
+    "pk": 2,
+    "fields": {
+      "name": "MuscleTech"
+    }
+  },
+  {
+    "model": "supplementation.brand",
+    "pk": 3,
+    "fields": {
+      "name": "MusclePharm"
+    }
+  },
+  {
+    "model": "supplementation.brand",
+    "pk": 4,
+    "fields": {
+      "name": "Jym"
+    }
+  },
+  {
+    "model": "supplementation.brand",
+    "pk": 5,
+    "fields": {
+      "name": "BSN"
+    }
+  },
+  {
+    "model": "supplementation.brand",
+    "pk": 6,
+    "fields": {
+      "name": "Cellucor"
+    }
+  }
+]

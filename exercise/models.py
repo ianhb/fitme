@@ -51,6 +51,7 @@ class WorkoutEntry(models.Model):
     goal_sets = models.IntegerField()
     goal_reps_per_set = models.IntegerField()
     goal_rest = models.IntegerField()
+    linked_above = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "Workout: " + self.workout.name + ", Exercise: " + self.exercise.name + ", Order: " + str(

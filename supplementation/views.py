@@ -1,6 +1,8 @@
 import datetime
+import json
 
 from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -65,7 +67,16 @@ def end_log_set(request, pk):
 
 def search_supplements(request):
     # TODO
-    return render(request, 'supplementation/search.html')
+
+    supplements = Supplement.objects.all()
+    supplement_json = json.dumps(list(supplements.values('pk', 'name', 'category', 'brand')), cls=DjangoJSONEncoder)
+
+    context = {
+        'supplements': supplements,
+        'supplement_json': supplement_json
+    }
+
+    return render(request, 'supplementation/search.html', context)
 
 
 def supplement_list(request):

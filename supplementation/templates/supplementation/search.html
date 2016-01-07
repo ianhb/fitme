@@ -1,1 +1,44 @@
-{% extends 'supplementation/base.html'%}
+{% extends 'supplementation/base.html' %}
+{% load staticfiles %}
+{% load supplement_tags %}
+
+{% block head %}
+    <script type="application/javascript" src="{% static "supplementation/supplement_search_filter.js" %}">
+    </script>
+{% endblock %}
+
+{% block title %}Search Supplements{% endblock %}
+
+{% block content %}
+    {% get_supplement_categories as categories %}
+    {% get_brands as brands %}
+
+    <h3>Search Supplements</h3>
+
+    <label for="name_search">Name: </label>
+    <input name="name_search" id="name_search" type="text" oninput="onClick({{ supplement_json }})">
+
+    <label for="cat_select">Category: </label>
+    <select id="cat_select" name="cat_select" onchange="onClick({{ supplement_json }})">
+        <option id="all" value="-1">All</option>
+        {% for cat in categories %}
+            <option id="{{ cat.pk }}" value="{{ cat.pk }}">{{ cat.name|capfirst }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="brand_select">Brand: </label>
+    <select id="brand_select" name="brand_select" onchange="onClick({{ supplement_json }})">
+        <option id="all" value="-1">All</option>
+        {% for brand in brands %}
+            <option id="{{ brand.pk }}" value="{{ brand.pk }}">{{ brand.name|capfirst }}</option>
+        {% endfor %}
+    </select>
+
+    <ul id="supplement_list">
+        {% for supplement in supplements %}
+            <li><a href="{% url 'supplement_detail' supplement.pk %}">{{ supplement.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
