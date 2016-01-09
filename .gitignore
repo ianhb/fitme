@@ -64,3 +64,5 @@ db.sqlite3
 .idea/
 
 */migrations/
+
+media/
