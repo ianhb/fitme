@@ -1,0 +1,167 @@
+[
+  {
+    "model": "supplementation.supplement",
+    "pk": 1,
+    "fields": {
+      "name": "Creatine Monohydrate",
+      "category": 1,
+      "brand": 1,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 5,
+      "serving_unit": "grams",
+      "use_count": 1
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 2,
+    "fields": {
+      "name": "Hydroxycut Hardcore Nextgen",
+      "category": 4,
+      "brand": 2,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 2,
+      "serving_unit": "capsules",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 3,
+    "fields": {
+      "name": "NO-Xplode",
+      "category": 3,
+      "brand": 5,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 4,
+    "fields": {
+      "name": "Pre-Jym",
+      "category": 3,
+      "brand": 4,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 5,
+    "fields": {
+      "name": "Gold Standard Whey",
+      "category": 2,
+      "brand": 1,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 6,
+    "fields": {
+      "name": "Post-Jym",
+      "category": 6,
+      "brand": 4,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 7,
+    "fields": {
+      "name": "C4",
+      "category": 3,
+      "brand": 6,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 8,
+    "fields": {
+      "name": "Phase-8",
+      "category": 2,
+      "brand": 2,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 9,
+    "fields": {
+      "name": "Combat Powder",
+      "category": 2,
+      "brand": 3,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 10,
+    "fields": {
+      "name": "Syntha-6",
+      "category": 2,
+      "brand": 5,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 1,
+      "serving_unit": "scoop",
+      "use_count": 0
+    }
+  },
+  {
+    "model": "supplementation.supplement",
+    "pk": 11,
+    "fields": {
+      "name": "Super-HD",
+      "category": 4,
+      "brand": 6,
+      "barcode": 0,
+      "label": "",
+      "description": "",
+      "standard_serving_size": 2,
+      "serving_unit": "capsules",
+      "use_count": 0
+    }
+  }
+]
