@@ -9,13 +9,13 @@
         <div>
             <h5>Muscle Group:</h5>
             {% for group in exercise.muscles_worked.all %}
-                <a href="{% url 'list_exercises' 'muscle' group.name 'all' %}">{{ group.name|capfirst }}</a>
+                <a href="{% url 'list_exercises' 'muscle' group.pk 'all' %}">{{ group.name|capfirst }}</a>
             {% endfor %}
         </div>
         <div>
             <h5>Equipment:</h5>
             {% for ment in exercise.equipment.all %}
-                <a href="{% url 'list_exercises' 'equipment' ment.name 'all' %}">{{ ment.name|capfirst }}</a>
+                <a href="{% url 'list_exercises' 'equipment' ment.pk 'all' %}">{{ ment.name|capfirst }}</a>
             {% endfor %}
         </div>
 

@@ -61,7 +61,7 @@ def create_workout(request):
     # TODO
     if request.method == 'POST':
         name = request.POST['name']
-        workout = Workout(name=name, user=request.user, public=(request.POST['public'] is not None))
+        workout = Workout(name=name, user=request.user, public=('public' in request.POST))
         workout.save()
         return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': workout.pk}))
 
@@ -198,10 +198,10 @@ def search_exercises(request):
 
 def list_exercises(request, filter_type, filter_main, filter=None):
     if filter_type == 'muscle' and filter_main != 'all':
-        muscle_group_obj = get_object_or_404(MuscleGroup, name__icontains=filter_main)
+        muscle_group_obj = get_object_or_404(MuscleGroup, pk=filter_main)
         exercises = Exercise.objects.filter(muscles_worked=muscle_group_obj)
     elif filter_type == 'equipment' and filter_main != 'all':
-        muscle_group_obj = get_object_or_404(Equipment, name__icontains=filter_main)
+        muscle_group_obj = get_object_or_404(Equipment, pk=filter_main)
         exercises = Exercise.objects.filter(equipment=muscle_group_obj)
     else:
         exercises = Exercise.objects.all()
