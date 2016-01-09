@@ -1,1 +1,17 @@
 {% extends 'supplementation/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <h3>{{ supplement.name|capfirst }}</h3>
+
+    <h5>Category: {{ supplement.category.name|capfirst }}</h5>
+    <h5>Brand: {{ supplement.brand.name|capfirst }}</h5>
+    <h5>Standard Serving: {{ supplement.standard_serving_size }} {{ supplement.serving_unit }}</h5>
+    <h5><a href="{% url 'log_supplement' supplement.pk %}">Log</a></h5>
+
+    {% if supplement.label %}
+        <img src="{{ supplement.label.url }}">
+    {% endif %}
+
+{% endblock %}

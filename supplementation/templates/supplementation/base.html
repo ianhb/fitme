@@ -22,11 +22,7 @@
         </ul>
     </li>
     <li class="active"><a href="{% url 'search_supplements' %}"><span>Search</span></a></li>
-    <li class="active has-sub last"><a><span>Logs</span></a>
-        <ul>
-            <li><a href="{% url 'choose_supplement_to_log' %}"><span>Log New Supplement</span></a></li>
-            <li class="last"><a href="{% url 'my_supplements' %}"><span>My Supplements</span></a></li>
-        </ul>
+    <li class="active last"><a href="{% url 'my_supplements' %}"><span>My Supplements</span></a>
     </li>
 
 {% endblock %}

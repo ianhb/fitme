@@ -10,8 +10,7 @@
             <li>
                 <a href="{% url 'supplement_detail' supp.supplement.pk %}">{{ supp.supplement.name|capfirst }}</a>
                 Started: {{ supp.date_started|date }}
-                <a href="{% url 'supplement_log_end' supp.pk %}">No Longer Used</a>
-                <a href="{% url 'supplement_set_log_end' supp.pk %}">Set End Date</a>
+                <a href="{% url 'supplement_set_log_end' supp.pk %}">End</a>
             </li>
         {% endfor %}
     </ul>
@@ -19,8 +18,23 @@
     <h4>Past Supplements</h4>
     <ul>
         {% for supp in past_supps %}
-            <li><a href="{% url 'supplement_detail' supp.supplement.pk %}">{{ supp.supplement.name|capfirst }}</a>
-                Started: {{ supp.date_started|date }} Ended: {{ supp.date_ended|date }}</li>
+            <li>
+                <a href="{% url 'supplement_detail' supp.0 %}">{{ supp.1|capfirst }}</a>
+                <ol>
+                    {% for entry in supp.2 %}
+                        <li>
+                            {% if entry.date_started == entry.date_ended %}
+                                {{ entry.date_started|date }}
+                            {% else %}
+                                {{ entry.date_started|date }} - {{ entry.date_ended|date }}
+                            {% endif %}
+                            {% if not forloop.last %}
+                                ,
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </li>
         {% endfor %}
     </ul>
 

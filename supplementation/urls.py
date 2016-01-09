@@ -8,7 +8,6 @@ urlpatterns = [
     url(r'^log/(?P<pk>[0-9]+)/', views.log_supplement, name='log_supplement'),
     url(r'^my_supplements/$', views.my_supplements, name='my_supplements'),
 
-    url(r'^end_now/(?P<pk>[0-9]+)/', views.end_log_now, name='supplement_log_end'),
     url(r'^end/(?P<pk>[0-9]+)/', views.end_log_set, name='supplement_set_log_end'),
 
     url(r'^search/$', views.search_supplements, name='search_supplements'),

@@ -1,0 +1,18 @@
+{% extends 'supplementation/base.html' %}
+
+{% block title %}{{ supplement.name|capfirst }} {{ log.date_started|date }}{% endblock %}
+
+{% block content %}
+    <h3>End Log of {{ supplement.name|capfirst }} started on {{ log.date_started|date }}</h3>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="end_date">End Date</label>
+        <input id="end_date" name="end_date" type="date">
+        <label for="today">Today</label>
+        <input id="today" name="today" type="checkbox">
+
+        <input type="submit" value="Log">
+
+    </form>
+{% endblock %}

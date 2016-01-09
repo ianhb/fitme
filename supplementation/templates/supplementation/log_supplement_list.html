@@ -1,1 +1,13 @@
 {% extends 'supplementation/base.html' %}
+
+{% block title %}Choose a Supplement to Log{% endblock %}
+
+{% block content %}
+    <h3>Choose a Supplement to Log</h3>
+
+    <ul>
+        {% for supp in supplement_list %}
+            <li><a href="{% url 'log_supplement' supp.pk %}">{{ supp.name|capfirst }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

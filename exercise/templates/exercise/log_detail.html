@@ -1,5 +1,5 @@
 {% extends 'exercise/base.html' %}
-{% load my_filters %}
+{% load exercise_tags %}
 
 {% block title %}
     {{ log.workout.name|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}

@@ -5,6 +5,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
@@ -17,7 +18,26 @@ def illegal_access():
 
 def exercise_home(request):
     # TODO
-    return render(request, 'exercise/base.html')
+
+    if request.user.is_authenticated():
+        user_workouts = Workout.objects.filter(user=request.user).order_by('log_count')
+
+        user_logs = WorkoutLog.objects.filter(user=request.user).order_by('date_ended')
+
+        user_exercise_logs = ExerciseLog.objects.filter(log__in=user_logs).annotate(exercise_count=Count('exercise'))
+
+        user_exercises = Exercise.objects.filter(exerciselog__in=user_exercise_logs).annotate(
+            count=Count('pk')).order_by('count')
+
+        context = {
+            'workouts': user_workouts,
+            'exercises': user_exercises,
+            'logs': user_logs
+        }
+
+        return render(request, 'exercise/home_authed.html', context)
+    else:
+        return render(request, 'exercise/base.html')
 
 
 def workout_detail(request, pk):
@@ -64,20 +84,26 @@ def record_workout(request, pk=None):
         workout_log.date_started = datetime.datetime.utcnow()
         workout_log.date_ended = datetime.datetime.utcnow()
         workout_log.save()
-        for key, value in request.POST.iteritems():
-            print key + " " + value
+        order = 1
         for entry in entries:
-            exercise_log = ExerciseLog(exercise=entry.exercise, log=workout_log, order=entry.order_in_workout)
+            exercise_log = ExerciseLog(exercise=entry.exercise, log=workout_log, order=order)
             exercise_log.save()
+            set_count = 0
             for i in range(entry.goal_sets):
                 form_key = str(entry.pk) + "_" + str(i + 1) + "_"
                 weight = request.POST[form_key + 'weight']
                 reps = request.POST[form_key + 'reps']
                 rest = request.POST[form_key + 'rest']
-                if weight is None or reps is None or rest is None:
+                if weight == '' or reps == '' or rest == '':
                     continue
                 set = SetLog(weight=weight, reps=reps, rest=rest, log_entry=exercise_log)
                 set.save()
+                set_count += 1
+            if set_count == 0:
+                exercise_log.delete()
+            else:
+                order += 1
+
         workout.log_count += 1
         workout.save()
 

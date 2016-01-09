@@ -1,0 +1,53 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}Exercise{% endblock %}
+
+{% block content %}
+    <h1>Home</h1>
+
+    <h3>My Top Workouts</h3>
+    <ol>
+        {% if workouts.count > 10 %}
+            {% for workout in workouts|slice:":10" %}
+                <li><a href="{% url 'workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a></li>
+            {% endfor %}
+        {% else %}
+            {% for workout in workouts %}
+                <li><a href="{% url 'workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ol>
+
+
+
+    <h3>My Top Exercises</h3>
+
+    <ol>
+        {% if exercises.count > 10 %}
+            {% for exercise in exercises|slice:":10" %}
+                <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
+            {% endfor %}
+        {% else %}
+            {% for exercise in exercises %}
+                <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ol>
+
+
+    <h3>My Recent Logs</h3>
+    <ol>
+        {% if logs.count > 10 %}
+            {% for log in logs|slice:":10" %}
+                <li><a href="{% url 'workout_log_detail' log.pk %}">{{ log.workout|capfirst }}
+                    on {{ log.date_ended|date }}</a></li>
+            {% endfor %}
+        {% else %}
+            {% for log in logs %}
+                <li><a href="{% url 'workout_log_detail' log.pk %}">{{ log.workout|capfirst }}
+                    on {{ log.date_ended|date }}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ol>
+
+{% endblock %}

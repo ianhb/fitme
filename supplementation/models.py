@@ -19,12 +19,16 @@ class Brand(models.Model):
         return self.name
 
 
+def get_label_path(instance, filename):
+    return "supplements/{0}/{1}".format(instance.brand.name, filename).replace(" ", "_").lower()
+
+
 class Supplement(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(SupplementCategory)
     brand = models.ForeignKey(Brand)
     barcode = models.IntegerField(default=0)
-    label = models.ImageField(default=None, upload_to="/images/supplement_labels/", blank=True)
+    label = models.ImageField(default=None, upload_to=get_label_path, blank=True)
     description = models.TextField(blank=True)
     standard_serving_size = models.IntegerField()
     serving_unit = models.CharField(max_length=128)

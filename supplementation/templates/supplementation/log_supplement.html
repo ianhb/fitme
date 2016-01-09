@@ -1,1 +1,37 @@
 {% extends 'supplementation/base.html' %}
+
+{% block title %}Log {{ supplement.name|capfirst }}{% endblock %}
+
+{% block content %}
+
+    <h3>Log {{ supplement.name|capfirst }}</h3>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="start_date">Start Date</label>
+        <input id="start_date" name="start_date" type="date">
+        <label for="start_today">Today</label>
+        <input id="start_today" name="start_today" type="checkbox">
+
+        <br>
+
+        <label for="end_date">End Date</label>
+        <input id="end_date" name="end_date" type="date">
+        <label for="current">Current</label>
+        <input id="current" name="current" type="checkbox">
+        <label for="end_today">Today</label>
+        <input id="end_today" name="end_today" type="checkbox">
+
+
+        <br>
+
+        <label for="servings">Servings: (1 serving
+            = {{ supplement.standard_serving_size }} {{ supplement.serving_unit }}</label>
+        <input id="servings" name="servings" type="number">
+
+        <br>
+
+        <input type="submit" value="Log">
+
+    </form>
+{% endblock %}
