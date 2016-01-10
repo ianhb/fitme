@@ -1,0 +1,10 @@
+.content_block {
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+
+#topper {
+    width: 100%;
+    text-align: center;
+}

@@ -2,7 +2,7 @@
     /*You can decorate the menu's container, such as adding background images through this block*/
     background-color: #222;
     height: 38px;
-    flex-grow: 1;
+    width: 100%;
     padding-bottom: 15px;
     padding-top: 15px;
     box-sizing: content-box;

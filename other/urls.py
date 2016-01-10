@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^update_weight', views.new_weight, name='new_weight'),
     url(r'^update_body_fat', views.new_bf, name='new_bf'),
     url(r'^edit_account/$', views.edit_account, name='edit_account'),
-    url(r'^logout/$', logout, name='logout'),
+    url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
 ]

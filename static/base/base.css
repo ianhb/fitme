@@ -10,15 +10,9 @@
 }
 
 #login_box {
-    height: 38px;
-    background-color: #222222;
-    padding-bottom: 15px;
-    padding-top: 15px;
+    float: right;
 }
 
-#login_box_content {
-    margin: 0 auto;
-}
 
 #login_box ul {
     position: relative;

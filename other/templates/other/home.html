@@ -1,1 +1,36 @@
-{% extends 'other/base.html' %}
+{% extends 'base/base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+    <link type="text/css" rel="stylesheet" href="{% static 'other/home.css' %}">
+{% endblock %}
+
+{% block title %}FitMe{% endblock %}
+
+{% block sidebar %}
+    <li class="active"><a href="{% url 'exercise_home' %}"><span>Exercise</span></a></li>
+    <li class="active"><a href="{% url 'nutrition_home' %}"><span>Nutrition</span></a></li>
+    <li class="active"><a href="{% url 'supplement_home' %}"><span>Supplements</span></a></li>
+    <li class="active last"><a href="{% url 'profile' %}"><span>Profile</span></a></li>
+
+{% endblock %}
+
+{% block content %}
+    <div id="topper">
+        {% block topper %}
+            <h2>FitMe: The Fitness Tracker Designed to Fit You</h2>
+        {% endblock %}
+    </div>
+
+    <div id="exercise_block" class="content_block">
+        {% block exercise %}{% endblock %}
+    </div>
+
+    <div id="nutrition_block" class="content_block">
+        {% block nutrition %}{% endblock %}
+    </div>
+    <div id="supplement_block" class="content_block">
+        {% block supplement %}{% endblock %}
+    </div>
+{% endblock %}

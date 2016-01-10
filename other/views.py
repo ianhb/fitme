@@ -12,7 +12,7 @@ from other.models import FitMeUser, WeightLog, BodyFatLog
 
 
 def account_home(request):
-    return render(request, 'other/home.html')
+    return render(request, 'other/home_auth.html')
 
 
 @login_required

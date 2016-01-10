@@ -31,5 +31,6 @@
 
     </table>
     <p><a href="{% url 'exercise_search' %}?workout={{ workout.pk }}">Add Exercises</a></p>
+    <p><a href="{% url 'record_workout' workout.pk %}">Record</a></p>
 
 {% endblock %}

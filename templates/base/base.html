@@ -26,23 +26,23 @@
                 <li><a href="{% url 'supplement_home' %}">Supplementation</a></li>
             </ul>
         </div>
-    </div>
-    <div id="login_box">
-        {% if user.is_authenticated %}
-            <div id="login_box_content" style="width: 200px;">
-                <ul>
-                    <li><a href="{% url 'profile' %}">Profile</a></li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-            </div>
-        {% else %}
-            <div id="login_box_content" style="width: 250px">
-                <ul>
-                    <li><a href="{% url 'login' %}">Sign In</a></li>
-                    <li><a href="{% url 'create_account' %}">Create Account</a></li>
-                </ul>
-            </div>
-        {% endif %}
+        <div id="login_box">
+            {% if user.is_authenticated %}
+                <div id="login_box_content" style="width: 200px;">
+                    <ul>
+                        <li><a href="{% url 'profile' %}">Profile</a></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <div id="login_box_content" style="width: 250px">
+                    <ul>
+                        <li><a href="{% url 'login' %}">Sign In</a></li>
+                        <li><a href="{% url 'create_account' %}">Create Account</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 <div id="main">
