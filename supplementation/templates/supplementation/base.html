@@ -7,7 +7,7 @@
 
 {% block sidebar %}
 
-    <li class="active"><a><span>Home</span></a></li>
+    <li class="active"><a href="{% url 'supplement_home' %}"><span>Home</span></a></li>
     {% get_supplement_categories as categories %}
     <li class="active has-sub"><a><span>Categories</span></a>
         <ul>

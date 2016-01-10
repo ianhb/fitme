@@ -37,15 +37,15 @@ def log_supplement(request, pk):
     supplement = get_object_or_404(Supplement, pk=pk)
 
     if request.method == 'POST':
-        if request.POST['start_today']:
+        if 'start_today' in request.POST:
             start_date = datetime.date.today()
         else:
             start_date = request.POST['start_date']
-        if request.POST['current']:
+        if 'current' in request.POST:
             if SupplementLog.objects.filter(user=request.user, supplement=supplement, date_ended=None).count() > 0:
                 return HttpResponseRedirect(reverse('my_supplements'))
             end_date = None
-        elif request.POST['end_today']:
+        elif 'end_today' in request.POST:
             end_date = datetime.date.today()
         else:
             end_date = request.POST['end_date']

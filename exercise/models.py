@@ -68,14 +68,14 @@ class Regimen(models.Model):
 
 class WorkoutLog(models.Model):
     user = models.ForeignKey(User)
-    date_started = models.DateTimeField()
-    date_ended = models.DateTimeField()
+    date_started = models.DateField()
+    date_ended = models.DateField()
     workout = models.ForeignKey(Workout)
 
     def __unicode__(self):
         return self.user.username + "_" + self.workout.name + "_" + \
-               str(self.date_started.strftime('%m-%d-%y-%I-%M')) + " to " + str(
-            self.date_ended.strftime('%m-%d-%y-%I-%M'))
+               str(self.date_started.strftime('%m-%d-%y')) + " to " + str(
+                self.date_ended.strftime('%m-%d-%y'))
 
 
 class ExerciseLog(models.Model):

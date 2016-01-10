@@ -7,7 +7,11 @@
     <label for="workout_select">Workout: </label>
     <select id="workout_select" name="workout_select" form="add_to_workout">
         {% for workout in workouts %}
-            <option value="{{ workout.pk }}">{{ workout.name|capfirst }}</option>
+            {% if default_workout == workout.pk %}
+                <option selected value="{{ workout.pk }}">{{ workout.name|capfirst }}</option>
+            {% else %}
+                <option value="{{ workout.pk }}">{{ workout.name|capfirst }}</option>
+            {% endif %}
         {% endfor %}
     </select>
     <form id="add_to_workout" action="" method="post">

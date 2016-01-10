@@ -1,4 +1,5 @@
 {% extends 'exercise/base.html' %}
+{% load exercise_tags %}
 
 {% block title %}{{ exercise.name|capfirst }}{% endblock %}
 
@@ -19,8 +20,22 @@
             {% endfor %}
         </div>
 
+        <div>
+            {% if user.is_authenticated and last_logged != None %}
+                <p>Last Logged Set: {{ last_logged.weight }}x{{ last_logged.reps }}</p>
+                <p>Heaviest Logged Set: {{ max_logged.weight }}x{{ max_logged.reps }}</p>
+            {% endif %}
+        </div>
+
         <br>
-        <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
+
+        {% if request.GET|get_item:"workout" != None %}
+            <a href="{% url 'add_to_workout' exercise.pk %}?workout={{ request.GET|get_item:"workout" }}">Add to
+                Workout</a>
+        {% else %}
+            <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
+        {% endif %}
+
 
     </div>
 

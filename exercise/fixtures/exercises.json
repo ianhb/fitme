@@ -6,7 +6,7 @@
       "name": "Barbell Bench Press",
       "created_by": 1,
       "description": "",
-      "use_count": 0,
+      "use_count": 2,
       "muscles_worked": [
         1
       ],
@@ -38,7 +38,7 @@
       "name": "Dumbbell Incline Press",
       "created_by": 1,
       "description": "",
-      "use_count": 0,
+      "use_count": 1,
       "muscles_worked": [
         1
       ],
@@ -166,7 +166,7 @@
       "name": "Cable Lower Chest Fly",
       "created_by": 1,
       "description": "",
-      "use_count": 0,
+      "use_count": 1,
       "muscles_worked": [
         1
       ],
@@ -198,7 +198,7 @@
       "name": "Cable Upper Chest Fly",
       "created_by": 1,
       "description": "",
-      "use_count": 0,
+      "use_count": 1,
       "muscles_worked": [
         1
       ],
@@ -214,7 +214,7 @@
       "name": "Barbell Deadlift",
       "created_by": 1,
       "description": "",
-      "use_count": 0,
+      "use_count": 1,
       "muscles_worked": [
         2,
         7,
@@ -264,7 +264,7 @@
       "name": "Dumbbell One Arm Row",
       "created_by": 1,
       "description": "",
-      "use_count": 0,
+      "use_count": 1,
       "muscles_worked": [
         2
       ],
@@ -598,6 +598,119 @@
       ],
       "equipment": [
         1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 38,
+    "fields": {
+      "name": "Dumbbell Alternating Bench Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 39,
+    "fields": {
+      "name": "Dumbbell Palms In Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 40,
+    "fields": {
+      "name": "Svend Press",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 41,
+    "fields": {
+      "name": "Cable One Arm Fly",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        1
+      ],
+      "equipment": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 42,
+    "fields": {
+      "name": "Wide Grip Lat Pulldown",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 43,
+    "fields": {
+      "name": "Barbell Deadlift to Row",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2,
+        8
+      ],
+      "equipment": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "exercise.exercise",
+    "pk": 44,
+    "fields": {
+      "name": "Cable One Arm Lat Pulldown",
+      "created_by": 1,
+      "description": "",
+      "use_count": 0,
+      "muscles_worked": [
+        2
+      ],
+      "equipment": [
+        3
       ]
     }
   }

@@ -30,9 +30,6 @@
         {% endfor %}
 
     </table>
-    <p><a href="{% url 'exercise_search' %}">Add Exercises</a></p>
-    <ol>
-
-    </ol>
+    <p><a href="{% url 'exercise_search' %}?workout={{ workout.pk }}">Add Exercises</a></p>
 
 {% endblock %}

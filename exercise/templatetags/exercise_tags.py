@@ -23,3 +23,11 @@ def get_muscle_groups():
 @register.simple_tag
 def get_equipment():
     return Equipment.objects.all()
+
+
+@register.filter
+def get_item(dictionary, key):
+    if key in dictionary:
+        return dictionary[key]
+    else:
+        return None

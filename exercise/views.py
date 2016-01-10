@@ -20,14 +20,14 @@ def exercise_home(request):
     # TODO
 
     if request.user.is_authenticated():
-        user_workouts = Workout.objects.filter(user=request.user).order_by('log_count')
+        user_workouts = Workout.objects.filter(user=request.user).order_by('log_count').reverse()
 
         user_logs = WorkoutLog.objects.filter(user=request.user).order_by('date_ended')
 
         user_exercise_logs = ExerciseLog.objects.filter(log__in=user_logs).annotate(exercise_count=Count('exercise'))
 
         user_exercises = Exercise.objects.filter(exerciselog__in=user_exercise_logs).annotate(
-            count=Count('pk')).order_by('count')
+                count=Count('pk')).order_by('count').reverse()
 
         context = {
             'workouts': user_workouts,
@@ -166,6 +166,8 @@ def add_to_workout(request, pk):
     workouts = Workout.objects.filter(user=request.user)
     context = {'exercise': exercise,
                'workouts': workouts}
+    if 'workout' in request.GET and workouts.filter(pk=request.GET['workout']).count() > 0:
+        context['default_workout'] = int(request.GET['workout'])
 
     return render(request, 'exercise/add_to_workout.html', context)
 
@@ -208,7 +210,7 @@ def list_exercises(request, filter_type, filter_main, filter=None):
 
     if filter is not None:
         if filter == 'top':
-            exercises = exercises.order_by('use_count')
+            exercises = exercises.order_by('use_count').reverse()
             if exercises.count() < 10:
                 exercises = exercises[:exercises.count()]
             else:
@@ -226,6 +228,13 @@ def exercise_detail(request, pk):
     exercise = get_object_or_404(Exercise, pk=pk)
 
     context = {'exercise': exercise}
+
+    if request.user.is_authenticated():
+        exercise_logs = ExerciseLog.objects.filter(log__user=request.user, exercise=exercise)
+        set_logs = SetLog.objects.filter(log_entry__in=exercise_logs)
+        context['last_logged'] = set_logs.order_by('log_entry__log__date_started')[0] if set_logs.count() > 0 else None
+        context['max_logged'] = set_logs.order_by('weight').reverse()[0] if set_logs.count() > 0 else None
+
     return render(request, 'exercise/exercise_detail.html', context)
 
 

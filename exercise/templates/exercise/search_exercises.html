@@ -33,7 +33,13 @@
     <ul id="exercise_list">
 
         {% for exercise in exercises %}
-            <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
+            {% if request.GET|get_item:"workout" != None %}
+                <li>
+                    <a href="{% url 'exercise_detail' exercise.pk %}?workout={{ request.GET|get_item:"workout" }}">{{ exercise.name|capfirst }}</a>
+                </li>
+            {% else %}
+                <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 
