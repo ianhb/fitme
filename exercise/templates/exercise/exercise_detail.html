@@ -1,45 +1,80 @@
 {% extends 'exercise/base.html' %}
 {% load exercise_tags %}
 
+{% block head %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--suppress CommaExpressionJS -->
+    <script type="text/javascript">
+        if ({{ logs }}) {
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+        }
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'One Rep Max'],
+                {% for max in daily_maxes %}{% if forloop.last %}
+                ['{{ max.0 }}', {{ max.1 }}]
+                        {% else %}
+                        ['{{ max.0 }}', {{ max.1 }}],
+                {% endif %}
+                {% endfor %}
+            ]);
+            var options = {
+                title: "{{ exercise.name|capfirst }} Progression"
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('data_chart'));
+            chart.draw(data, options);
+        }
+
+
+    </script>
+{% endblock %}
+
 {% block title %}{{ exercise.name|capfirst }}{% endblock %}
 
 {% block content %}
     <div>
         <h3>{{ exercise.name|capfirst }}</h3>
 
-        <div>
-            <h5>Muscle Group:</h5>
-            {% for group in exercise.muscles_worked.all %}
-                <a href="{% url 'list_exercises' 'muscle' group.pk 'all' %}">{{ group.name|capfirst }}</a>
-            {% endfor %}
-        </div>
-        <div>
-            <h5>Equipment:</h5>
-            {% for ment in exercise.equipment.all %}
-                <a href="{% url 'list_exercises' 'equipment' ment.pk 'all' %}">{{ ment.name|capfirst }}</a>
-            {% endfor %}
+        <div id="exercise_data" style="float: left">
+            <div>
+                <h5>Muscle Group:</h5>
+                {% for group in exercise.muscles_worked.all %}
+                    <a href="{% url 'list_exercises' 'muscle' group.pk 'all' %}">{{ group.name|capfirst }}</a>
+                {% endfor %}
+            </div>
+            <div>
+                <h5>Equipment:</h5>
+                {% for ment in exercise.equipment.all %}
+                    <a href="{% url 'list_exercises' 'equipment' ment.pk 'all' %}">{{ ment.name|capfirst }}</a>
+                {% endfor %}
+            </div>
+            <br>
+
+            {% if request.GET|get_item:"workout" != None %}
+                <a href="{% url 'add_to_workout' exercise.pk %}?workout={{ request.GET|get_item:"workout" }}">Add to
+                    Workout</a>
+            {% else %}
+                <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
+            {% endif %}
+
+            <p>{{ exercise.description|capfirst }}</p>
+
         </div>
 
-        <div>
-            {% if user.is_authenticated and last_logged != None %}
+        <div id="user_data" style="float: right;">
+            {% if logs %}
                 <p>Last Logged Set: {{ last_logged.weight }}x{{ last_logged.reps }}</p>
                 <p>Heaviest Logged Set: {{ max_logged.weight }}x{{ max_logged.reps }}</p>
+                <div id="data_chart" style="width: 900px; height: 900px"></div>
             {% endif %}
         </div>
-
-        <br>
-
-        {% if request.GET|get_item:"workout" != None %}
-            <a href="{% url 'add_to_workout' exercise.pk %}?workout={{ request.GET|get_item:"workout" }}">Add to
-                Workout</a>
-        {% else %}
-            <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
-        {% endif %}
 
 
     </div>
 
-    <p>{{ exercise.description|capfirst }}</p>
+
 
 
 

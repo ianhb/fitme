@@ -1,11 +1,12 @@
 # Create your views here.
 import datetime
 import json
+from operator import itemgetter
 
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
-from django.db.models import Count
+from django.db.models import Count, F, Max
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
@@ -223,6 +224,11 @@ def list_exercises(request, filter_type, filter_main, filter=None):
     return render(request, 'exercise/exercise_list.html', context)
 
 
+def human_readable_date(entry):
+    date, weight = entry
+    return datetime.date.strftime(date, "%m-%d-%y"), weight
+
+
 def exercise_detail(request, pk):
     # TODO
     exercise = get_object_or_404(Exercise, pk=pk)
@@ -231,9 +237,28 @@ def exercise_detail(request, pk):
 
     if request.user.is_authenticated():
         exercise_logs = ExerciseLog.objects.filter(log__user=request.user, exercise=exercise)
-        set_logs = SetLog.objects.filter(log_entry__in=exercise_logs)
-        context['last_logged'] = set_logs.order_by('log_entry__log__date_started')[0] if set_logs.count() > 0 else None
-        context['max_logged'] = set_logs.order_by('weight').reverse()[0] if set_logs.count() > 0 else None
+        if exercise_logs.count() > 0:
+            context['logs'] = 'true'
+            set_logs = SetLog.objects.filter(log_entry__in=exercise_logs)
+            context['last_logged'] = set_logs.order_by('log_entry__log__date_started')[0]
+            context['max_logged'] = set_logs.order_by('weight').reverse()[0]
+            set_logs = set_logs.values('log_entry', 'log_entry__log__date_started').annotate(
+                    work_max=Max(F('weight') + (F('weight') * F('reps') * 1.0 / 30.0)))
+            daily_maxes = dict()
+            for log in set_logs:
+                date = log['log_entry__log__date_started']
+                if date in daily_maxes:
+                    daily_maxes[date] = max(log['work_max'], daily_maxes[date])
+                else:
+                    daily_maxes[date] = log['work_max']
+            daily_maxes = sorted(daily_maxes.items(), key=itemgetter(0))
+            daily_maxes = map(human_readable_date, daily_maxes)
+            context['daily_maxes'] = list(daily_maxes)
+
+        else:
+            context['logs'] = 'false'
+    else:
+        context['logs'] = 'false'
 
     return render(request, 'exercise/exercise_detail.html', context)
 
