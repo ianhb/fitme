@@ -9,6 +9,9 @@ class Food(models.Model):
     name = models.CharField(max_length=255)
     barcode = models.IntegerField(default=0)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Serving(models.Model):
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
