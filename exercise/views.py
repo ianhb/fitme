@@ -6,7 +6,7 @@ from operator import itemgetter
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
-from django.db.models import Count, F, Max
+from django.db.models import Count, F, Max, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
@@ -15,6 +15,20 @@ from exercise.models import Workout, Exercise, MuscleGroup, Equipment, WorkoutEn
 
 def illegal_access():
     raise Exception("Accessing Illegal Data")
+
+
+def get_user_exercises(request):
+    if request.user.is_authenticated():
+        return Exercise.objects.filter(Q(created_by=1) | Q(created_by=request.user))
+    else:
+        return Exercise.objects.filter(created_by=1)
+
+
+def get_user_workouts(request):
+    if request.user.is_authenticated():
+        return Workout.objects.filter(Q(user=request.user) | Q(public=True))
+    else:
+        return Workout.objects.filter(public=True)
 
 
 def exercise_home(request):
@@ -121,7 +135,7 @@ def record_workout(request, pk=None):
 def search_workout(request):
     # TODO
 
-    workouts = Workout.objects.filter(public=True).order_by('log_count')
+    workouts = get_user_workouts(request).order_by('log_count')
     workout_list = list(workouts.values('pk', 'name', 'date_created', 'log_count'))
     for workout in workout_list:
         exercises = WorkoutEntry.objects.filter(workout=workout['pk'])
@@ -187,7 +201,7 @@ def move_exercise_up(request, pk):
 
 
 def search_exercises(request):
-    exercises = Exercise.objects.all().order_by('name')
+    exercises = get_user_exercises(request).order_by('name')
     exercises_json = json.dumps(list(exercises.values('pk', 'name', 'muscles_worked', 'equipment')),
                                 cls=DjangoJSONEncoder)
 
@@ -200,15 +214,16 @@ def search_exercises(request):
 
 
 def list_exercises(request, filter_type, filter_main, filter=None):
+    exercises = get_user_exercises(request)
+    name = 'all'
     if filter_type == 'muscle' and filter_main != 'all':
         muscle_group_obj = get_object_or_404(MuscleGroup, pk=filter_main)
-        exercises = Exercise.objects.filter(muscles_worked=muscle_group_obj)
+        exercises = exercises.filter(muscles_worked=muscle_group_obj)
+        name = muscle_group_obj.name
     elif filter_type == 'equipment' and filter_main != 'all':
         muscle_group_obj = get_object_or_404(Equipment, pk=filter_main)
-        exercises = Exercise.objects.filter(equipment=muscle_group_obj)
-    else:
-        exercises = Exercise.objects.all()
-
+        exercises = exercises.filter(equipment=muscle_group_obj)
+        name = muscle_group_obj.name
     if filter is not None:
         if filter == 'top':
             exercises = exercises.order_by('use_count').reverse()
@@ -219,7 +234,8 @@ def list_exercises(request, filter_type, filter_main, filter=None):
 
     context = {'exercises': exercises,
                'filter_type': filter_type,
-               'filter_main': filter_main}
+               'filter_main': filter_main,
+               'filter_name': name}
     # TODO
     return render(request, 'exercise/exercise_list.html', context)
 

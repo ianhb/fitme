@@ -1,9 +1,9 @@
 {% extends 'exercise/base.html' %}
 
-{% block title %}{{ muscle_group|capfirst }} Exercises{% endblock %}
+{% block title %}{{ filter_name|capfirst }} Exercises{% endblock %}
 
 {% block content %}
-    <h3>{{ filter_type|capfirst }}: {{ filter_main|capfirst }}</h3>
+    <h3>{{ filter_type|capfirst }}: {{ filter_name|capfirst }}</h3>
     <ul>
         {% for exercise in exercises %}
             <li><a href="{% url 'exercise_detail' exercise.pk %}">{{ exercise.name|capfirst }}</a></li>
