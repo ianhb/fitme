@@ -8,6 +8,14 @@ from django.db import models
 class Food(models.Model):
     name = models.CharField(max_length=255)
     barcode = models.IntegerField(default=0)
+    calories_per_100g = models.IntegerField()
+    carbohydrates_per_100g = models.IntegerField()
+    fat_per_100g = models.IntegerField()
+    protein_per_100g = models.IntegerField()
+    vitamin_a_per_100g = models.IntegerField()
+    vitamin_c_per_100g = models.IntegerField()
+    iron_per_100g = models.IntegerField()
+    calcium_per_100g = models.IntegerField()
 
     def __unicode__(self):
         return self.name
@@ -16,14 +24,7 @@ class Food(models.Model):
 class Serving(models.Model):
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
-    calories = models.IntegerField()
-    carbohydrates = models.IntegerField()
-    fat = models.IntegerField()
-    protein = models.IntegerField()
-    vitamin_a = models.IntegerField()
-    vitamin_c = models.IntegerField()
-    iron = models.IntegerField()
-    calcium = models.IntegerField()
+    scalar = models.FloatField()
 
 
 class NutritionLog(models.Model):

@@ -46,3 +46,17 @@ the service with the new image with `docker-compose restart web`
 By default, fitme will run on the server at port 8000 (or whatever is specified in the Dockerfile). To connect to it, point the browser
 at the ip of the container (either the docker machine ip or the local ip if no docker-machine is used) at port 8000.
 
+#Fixtures
+Included in the repository are fixtures to populate the database. They must be loaded in a particular order to work.
+This includes super user account with credentials admin fitmepassword
+
+1. user_init
+2. exercise_init
+3. supplement_init
+4. brands
+5. foods_0
+6. foods_1
+7. exercises
+8. supplements
+9. servings
+
