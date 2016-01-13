@@ -37,6 +37,7 @@ class Workout(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField(default=False)
     log_count = models.IntegerField(default=0)
+    description = models.TextField(blank=True, default='')
     exercise_list = models.ManyToManyField(Exercise, through='WorkoutEntry',
                                            through_fields=('workout', 'exercise'))
 

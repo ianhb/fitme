@@ -76,7 +76,11 @@ def create_workout(request):
     # TODO
     if request.method == 'POST':
         name = request.POST['name']
-        workout = Workout(name=name, user=request.user, public=('public' in request.POST))
+        if 'desc_and_notes' in request.POST:
+            desc = request.POST['desc_and_notes']
+        else:
+            desc = ''
+        workout = Workout(name=name, user=request.user, public=('public' in request.POST), description=desc)
         workout.save()
         return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': workout.pk}))
 
