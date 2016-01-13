@@ -16,6 +16,7 @@
             <td>Reps</td>
             <td>Rest</td>
             <td>Move Up</td>
+            <td>Linked Above</td>
         </tr>
 
         {% for entry in exercise_entries %}
@@ -26,6 +27,11 @@
                 <td>{{ entry.goal_reps_per_set }}</td>
                 <td>{{ entry.goal_rest }}</td>
                 <td><a href="{% url 'move_up' entry.pk %}">Up</a></td>
+                {% if entry.linked_above %}
+                    <td><a href="{% url 'unlink' entry.pk %}">Y</a></td>
+                {% else %}
+                    <td><a href="{% url 'link' entry.pk %}">N</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
 

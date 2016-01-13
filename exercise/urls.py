@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^search/workout/$', views.search_workout, name='workout_search'),
     url(r'^add_to_workout/(?P<pk>[0-9]+)/', views.add_to_workout, name='add_to_workout'),
     url(r'^move_up/(?P<pk>[0-9]+)/', views.move_exercise_up, name='move_up'),
+    url(r'^link/(?P<pk>[0-9]+)/', views.link, name='link'),
+    url(r'^unlink/(?P<pk>[0-9]+)/', views.unlink, name='unlink'),
 
     url(r'^list/', include(exercise_list_urls)),
     url(r'^search/exercise/', views.search_exercises, name='exercise_search'),

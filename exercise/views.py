@@ -67,7 +67,7 @@ def workout_detail(request, pk):
 @login_required
 def my_workouts(request):
     # TODO
-    workouts = Workout.objects.filter(user=request.user)
+    workouts = Workout.objects.filter(user=request.user).order_by('name')
     return render(request, 'exercise/workout_list.html', {'workouts': workouts})
 
 
@@ -197,6 +197,28 @@ def move_exercise_up(request, pk):
     entry.save()
     prior_entry.order_in_workout += 1
     prior_entry.save()
+    return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': entry.workout.pk}))
+
+
+@login_required
+def link(request, pk):
+    entry = get_object_or_404(WorkoutEntry, pk=pk)
+    if request.user != entry.workout.user:
+        illegal_access()
+    if not entry.linked_above:
+        entry.linked_above = True
+        entry.save()
+    return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': entry.workout.pk}))
+
+
+@login_required
+def unlink(request, pk):
+    entry = get_object_or_404(WorkoutEntry, pk=pk)
+    if request.user != entry.workout.user:
+        illegal_access()
+    if entry.linked_above:
+        entry.linked_above = False
+        entry.save()
     return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': entry.workout.pk}))
 
 
