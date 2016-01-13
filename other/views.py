@@ -69,7 +69,34 @@ def new_bf(request):
 @login_required
 def edit_account(request):
     # TODO
-    return render(request, 'other/base.html')
+
+    fitme_user = request.user.fitmeuser
+
+    if request.method == 'POST':
+        if 'first_name' in request.POST and request.POST['first_name'] != request.user.first_name:
+            request.user.first_name = request.POST['first_name']
+        if 'last_name' in request.POST and request.POST['last_name'] != request.user.last_name:
+            request.user.last_name = request.POST['last_name']
+        if 'email' in request.POST and request.POST['email'] != request.user.email:
+            request.user.email = request.POST['email']
+        if 'age' in request.POST and request.POST['age'] != fitme_user.age:
+            fitme_user.age = request.POST['age']
+        if 'height_feet' in request.POST and 'height_inches' in request.POST:
+            height = (int(request.POST['height_feet']) * 12) + int(request.POST['height_inches'])
+            if height != fitme_user.height:
+                fitme_user.height = height
+        request.user.save()
+        fitme_user.save()
+        return HttpResponseRedirect(reverse('profile'))
+
+    context = {
+        'user': request.user,
+        'age': fitme_user.age,
+        'height_feet': fitme_user.height / 12,
+        'height_inches': fitme_user.height % 12
+    }
+
+    return render(request, 'other/update_profile.html', context)
 
 
 def create_account(request):

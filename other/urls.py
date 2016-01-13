@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import login, logout, password_change
 
 from other import views
 
@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^update_weight', views.new_weight, name='new_weight'),
     url(r'^update_body_fat', views.new_bf, name='new_bf'),
     url(r'^edit_account/$', views.edit_account, name='edit_account'),
+    url(r'^change_password/$', password_change, {'template_name': 'other/change_password.html',
+                                                 'post_change_redirect': 'profile'}, name='change_password'),
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
 ]

@@ -1,0 +1,29 @@
+{% extends 'other/base.html' %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+
+    <h4>Username: {{ user.username }}</h4>
+    <h4><a href="{% url 'change_password' %}">Change Password</a></h4>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="first_name">First Name: </label>
+        <input id="first_name" name="first_name" type="text" value="{{ user.first_name }}"><br>
+        <label for="last_name">Last Name: </label>
+        <input id="last_name" name="last_name" type="text" value="{{ user.last_name }}"><br>
+        <label for="email">Email: </label>
+        <input id="email" name="email" type="email" value="{{ user.email }}"><br>
+        <label for="age">Age: </label>
+        <input id="age" name="age" type="number" value="{{ age }}"><br>
+        <label for="height_feet">Height: </label>
+        <input name="height_feet" id="height_feet" type="number" value="{{ height_feet }}"><label for="height_feet">
+        Feet</label>
+        <input name="height_inches" id="height_inches" type="number" value="{{ height_inches }}"><label
+            for="height_inches"> Inches</label> <br>
+
+        <input type="submit" value="Update">
+    </form>
+
+{% endblock %}
