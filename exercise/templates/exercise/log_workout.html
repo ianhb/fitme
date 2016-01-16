@@ -18,15 +18,33 @@
                     <td>Rest</td>
                 </tr>
                 {% for set in entry.goal_sets|times %}
-                    <tr>
+                    {% get_log_value last_sets entry.exercise.pk forloop.counter 'weight' as weight %}
+                    {% get_log_value last_sets entry.exercise.pk forloop.counter 'reps' as reps %}
+                    {% get_log_value last_sets entry.exercise.pk forloop.counter 'rest' as rest %}
+                    {% if weight > -1 %}
+                        <tr>
                         <td>{{ set }}</td>
-                        <td><input name="{{ entry.pk }}_{{ set }}_weight" type="number" title="Set {{ set }} Weight">
+                            <td><input name="{{ entry.pk }}_{{ set }}_weight" type="number" title="Set {{ set }} Weight"
+                                       value="{{ weight }}">
                         </td>
                         <td><input name="{{ entry.pk }}_{{ set }}_reps" type="number" title="Set {{ set }} Reps"
-                                   value="{{ entry.goal_reps_per_set }}"></td>
+                                   value="{{ reps }}"></td>
                         <td><input name="{{ entry.pk }}_{{ set }}_rest" type="number" title="Set {{ set }} Rest"
-                                   value="{{ entry.goal_rest }}"></td>
+                                   value="{{ rest }}"></td>
                     </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ set }}</td>
+                            <td><input name="{{ entry.pk }}_{{ set }}_weight" type="number" title="Set {{ set }} Weight"
+                                       value="">
+                            </td>
+                            <td><input name="{{ entry.pk }}_{{ set }}_reps" type="number" title="Set {{ set }} Reps"
+                                       value="{{ entry.goal_reps_per_set }}"></td>
+                            <td><input name="{{ entry.pk }}_{{ set }}_rest" type="number" title="Set {{ set }} Rest"
+                                       value="{{ entry.goal_rest }}"></td>
+                        </tr>
+                    {% endif %}
+
                 {% endfor %}
             </table>
         {% endfor %}

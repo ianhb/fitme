@@ -31,3 +31,15 @@ def get_item(dictionary, key):
         return dictionary[key]
     else:
         return None
+
+
+@register.simple_tag
+def get_log_value(last_log, exercise, set_no, type):
+    if exercise in last_log:
+        ex_log = last_log[exercise]
+        if len(ex_log) > set_no - 1:
+            set_log = ex_log[set_no - 1]
+            if type in set_log:
+                return set_log[type]
+
+    return -1

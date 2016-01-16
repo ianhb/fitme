@@ -93,7 +93,7 @@ def record_workout(request, pk=None):
 
     if pk is None:
         return render(request, 'exercise/select_logged_workout.html',
-                      {'workouts': Workout.objects.filter(user=request.user)})
+                      {'workouts': Workout.objects.filter(user=request.user).order_by('log_count')})
 
     workout = get_object_or_404(Workout, pk=pk)
     entries = WorkoutEntry.objects.filter(workout=workout)
@@ -128,9 +128,16 @@ def record_workout(request, pk=None):
 
         return HttpResponseRedirect(reverse('workout_logs'))
 
+    last_log = WorkoutLog.objects.filter(user=request.user, workout=workout)
+    last_sets = {}
+    if last_log.count() > 0:
+        for exercise_log in last_log.order_by('date_started').reverse()[0].exerciselog_set.all():
+            last_sets[exercise_log.exercise.pk] = exercise_log.setlog_set.values('weight', 'reps', 'rest')
+
     context = {
         'workout': workout,
-        'entries': entries
+        'entries': entries,
+        'last_sets': last_sets
     }
 
     return render(request, 'exercise/log_workout.html', context)
