@@ -69,8 +69,8 @@ class Regimen(models.Model):
 
 class WorkoutLog(models.Model):
     user = models.ForeignKey(User)
-    date_started = models.DateField()
-    date_ended = models.DateField()
+    date = models.DateField()
+    duration = models.FloatField()
     workout = models.ForeignKey(Workout)
 
     def __unicode__(self):
@@ -87,6 +87,6 @@ class ExerciseLog(models.Model):
 
 class SetLog(models.Model):
     log_entry = models.ForeignKey(ExerciseLog, on_delete=models.CASCADE)
-    weight = models.IntegerField()
+    weight = models.FloatField()
     reps = models.IntegerField()
     rest = models.IntegerField()

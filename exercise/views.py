@@ -37,7 +37,7 @@ def exercise_home(request):
     if request.user.is_authenticated():
         user_workouts = Workout.objects.filter(user=request.user).order_by('log_count').reverse()
 
-        user_logs = WorkoutLog.objects.filter(user=request.user).order_by('date_ended')
+        user_logs = WorkoutLog.objects.filter(user=request.user).order_by('date')
 
         user_exercise_logs = ExerciseLog.objects.filter(log__in=user_logs).annotate(exercise_count=Count('exercise'))
 
@@ -100,8 +100,8 @@ def record_workout(request, pk=None):
 
     if request.method == 'POST':
         workout_log = WorkoutLog(user=request.user, workout=workout)
-        workout_log.date_started = datetime.datetime.utcnow()
-        workout_log.date_ended = datetime.datetime.utcnow()
+        workout_log.date = datetime.datetime.utcnow()
+        workout_log.duration = 0
         workout_log.save()
         order = 1
         for entry in entries:
@@ -115,8 +115,8 @@ def record_workout(request, pk=None):
                 rest = request.POST[form_key + 'rest']
                 if weight == '' or reps == '' or rest == '':
                     continue
-                set = SetLog(weight=weight, reps=reps, rest=rest, log_entry=exercise_log)
-                set.save()
+                set_log = SetLog(weight=weight, reps=reps, rest=rest, log_entry=exercise_log)
+                set_log.save()
                 set_count += 1
             if set_count == 0:
                 exercise_log.delete()
@@ -131,7 +131,7 @@ def record_workout(request, pk=None):
     last_log = WorkoutLog.objects.filter(user=request.user, workout=workout)
     last_sets = {}
     if last_log.count() > 0:
-        for exercise_log in last_log.order_by('date_started').reverse()[0].exerciselog_set.all():
+        for exercise_log in last_log.order_by('date').reverse()[0].exerciselog_set.all():
             last_sets[exercise_log.exercise.pk] = exercise_log.setlog_set.values('weight', 'reps', 'rest')
 
     context = {
@@ -246,7 +246,7 @@ def search_exercises(request):
     return render(request, 'exercise/search_exercises.html', context)
 
 
-def list_exercises(request, filter_type, filter_main, filter=None):
+def list_exercises(request, filter_type, filter_main, second_filter=None):
     exercises = get_user_exercises(request)
     name = 'all'
     if filter_type == 'muscle' and filter_main != 'all':
@@ -257,8 +257,8 @@ def list_exercises(request, filter_type, filter_main, filter=None):
         muscle_group_obj = get_object_or_404(Equipment, pk=filter_main)
         exercises = exercises.filter(equipment=muscle_group_obj)
         name = muscle_group_obj.name
-    if filter is not None:
-        if filter == 'top':
+    if second_filter is not None:
+        if second_filter == 'top':
             exercises = exercises.order_by('use_count').reverse()
             if exercises.count() < 10:
                 exercises = exercises[:exercises.count()]
@@ -289,13 +289,13 @@ def exercise_detail(request, pk):
         if exercise_logs.count() > 0:
             context['logs'] = 'true'
             set_logs = SetLog.objects.filter(log_entry__in=exercise_logs)
-            context['last_logged'] = set_logs.order_by('log_entry__log__date_started')[0]
+            context['last_logged'] = set_logs.order_by('log_entry__log__date')[0]
             context['max_logged'] = set_logs.order_by('weight').reverse()[0]
-            set_logs = set_logs.values('log_entry', 'log_entry__log__date_started').annotate(
+            set_logs = set_logs.values('log_entry', 'log_entry__log__date').annotate(
                     work_max=Max(F('weight') + (F('weight') * F('reps') * 1.0 / 30.0)))
             daily_maxes = dict()
             for log in set_logs:
-                date = log['log_entry__log__date_started']
+                date = log['log_entry__log__date']
                 if date in daily_maxes:
                     daily_maxes[date] = max(log['work_max'], daily_maxes[date])
                 else:
