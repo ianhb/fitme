@@ -30,8 +30,7 @@ class ExerciseLogInline(admin.TabularInline):
 @admin.register(WorkoutLog)
 class LogAdmin(admin.ModelAdmin):
     fields = ['user',
-              'date_started',
-              'date_ended',
+              'date',
               'workout']
     inlines = (ExerciseLogInline,)
 
