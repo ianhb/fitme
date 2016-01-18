@@ -76,8 +76,7 @@ class WorkoutLog(models.Model):
 
     def __unicode__(self):
         return self.user.username + "_" + self.workout.name + "_" + \
-               str(self.date_started.strftime('%m-%d-%y')) + " to " + str(
-                self.date_ended.strftime('%m-%d-%y'))
+               str(self.date.strftime('%m-%d-%y'))
 
 
 class ExerciseLog(models.Model):
