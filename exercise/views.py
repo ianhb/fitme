@@ -96,7 +96,7 @@ def record_workout(request, pk=None):
                       {'workouts': Workout.objects.filter(user=request.user).order_by('log_count')})
 
     workout = get_object_or_404(Workout, pk=pk)
-    entries = WorkoutEntry.objects.filter(workout=workout)
+    entries = WorkoutEntry.objects.filter(workout=workout).order_by('order_in_workout')
 
     if request.method == 'POST':
         workout_log = WorkoutLog(user=request.user, workout=workout)
@@ -132,7 +132,7 @@ def record_workout(request, pk=None):
     last_sets = {}
     if last_log.count() > 0:
         for exercise_log in last_log.order_by('date').reverse()[0].exerciselog_set.all():
-            last_sets[exercise_log.exercise.pk] = exercise_log.setlog_set.values('weight', 'reps', 'rest')
+            last_sets[exercise_log.order] = exercise_log.setlog_set.values('weight', 'reps', 'rest')
 
     context = {
         'workout': workout,
@@ -166,13 +166,13 @@ def search_workout(request):
     return render(request, 'exercise/search_workout.html', context)
 
 
-def add_ex_to_workout(exercise, workout, sets, reps, rest):
+def add_ex_to_workout(exercise, workout, sets, reps, rest, notes):
     exercise = get_object_or_404(Exercise, pk=exercise)
     exercise.use_count += 1
     exercise.save()
     WorkoutEntry(exercise=exercise, workout=workout,
                  goal_reps_per_set=reps, goal_sets=sets, goal_rest=rest,
-                 order_in_workout=workout.exercise_list.count() + 1).save()
+                 order_in_workout=workout.exercise_list.count() + 1, notes=notes).save()
 
 
 @login_required
@@ -184,7 +184,8 @@ def add_to_workout(request, pk):
         sets = request.POST['sets']
         reps = request.POST['reps']
         rest = request.POST['rest']
-        add_ex_to_workout(pk, workout, sets, reps, rest)
+        notes = request.POST['notes'] if 'notes' in request.POST else ''
+        add_ex_to_workout(pk, workout, sets, reps, rest, notes)
         return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': workout.pk}))
 
     exercise = get_object_or_404(Exercise, pk=pk)
@@ -230,6 +231,24 @@ def unlink(request, pk):
     if entry.linked_above:
         entry.linked_above = False
         entry.save()
+    return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': entry.workout.pk}))
+
+
+def delete_entry(entry):
+    entries = entry.workout.workoutentry_set.all()
+    for ent in entries:
+        if ent.order_in_workout > entry.order_in_workout:
+            ent.order_in_workout -= 1
+            ent.save()
+    entry.delete()
+
+
+@login_required
+def remove_from_workout(request, pk):
+    entry = get_object_or_404(WorkoutEntry, pk=pk)
+    if request.user != entry.workout.user:
+        illegal_access()
+    delete_entry(entry)
     return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': entry.workout.pk}))
 
 

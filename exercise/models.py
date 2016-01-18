@@ -52,6 +52,7 @@ class WorkoutEntry(models.Model):
     goal_sets = models.IntegerField()
     goal_reps_per_set = models.IntegerField()
     goal_rest = models.IntegerField()
+    notes = models.TextField(default='', blank=True)
     linked_above = models.BooleanField(default=False)
 
     def __unicode__(self):

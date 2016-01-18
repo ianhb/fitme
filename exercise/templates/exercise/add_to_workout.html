@@ -17,11 +17,13 @@
     <form id="add_to_workout" action="" method="post">
         {% csrf_token %}
         <label for="sets">Sets: </label>
-        <input id="sets" name="sets" type="number">
+        <input id="sets" name="sets" type="number"><br>
         <label for="reps">Reps: </label>
-        <input id="reps" name="reps" type="number">
+        <input id="reps" name="reps" type="number"><br>
         <label for="rest">Rest: </label>
-        <input id="rest" name="rest" type="number">
-        <input type="submit" value="Select">
+        <input id="rest" name="rest" type="number"><br>
+        <label for="notes">Notes: </label>
+        <textarea id="notes" name="notes" rows="2"></textarea><br>
+        <input type="submit" value="Add">
     </form>
 {% endblock %}

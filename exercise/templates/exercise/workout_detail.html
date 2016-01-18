@@ -22,6 +22,7 @@
             <td>Rest</td>
             <td>Move Up</td>
             <td>Linked Above</td>
+            <td>Notes</td>
         </tr>
 
         {% for entry in exercise_entries %}
@@ -37,6 +38,8 @@
                 {% else %}
                     <td><a href="{% url 'link' entry.pk %}">N</a></td>
                 {% endif %}
+                <td>{{ entry.notes }}</td>
+                <td><a href="{% url 'remove_from_workout' entry.pk %}">Remove</a></td>
             </tr>
         {% endfor %}
 

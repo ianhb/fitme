@@ -2,12 +2,12 @@
 {% load exercise_tags %}
 
 {% block title %}
-    {{ log.workout.name|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}
+    {{ log.workout.name|capfirst }} {{ log.date|date }}
 {% endblock %}
 
 {% block content %}
 
-    <h3>{{ log.workout.name|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}</h3>
+    <h3>{{ log.workout.name|capfirst }} {{ log.date|date }}</h3>
     <ol>
         {% for exercise in exercises %}
             <li>

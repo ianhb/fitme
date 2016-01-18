@@ -40,12 +40,12 @@
         {% if logs.count > 10 %}
             {% for log in logs|slice:":10" %}
                 <li><a href="{% url 'workout_log_detail' log.pk %}">{{ log.workout|capfirst }}
-                    on {{ log.date_ended|date }}</a></li>
+                    on {{ log.date|date }}</a></li>
             {% endfor %}
         {% else %}
             {% for log in logs %}
                 <li><a href="{% url 'workout_log_detail' log.pk %}">{{ log.workout|capfirst }}
-                    on {{ log.date_ended|date }}</a></li>
+                    on {{ log.date|date }}</a></li>
             {% endfor %}
         {% endif %}
     </ol>

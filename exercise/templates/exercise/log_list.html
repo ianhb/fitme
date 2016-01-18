@@ -7,7 +7,7 @@
     <ul>
         {% for log in logs %}
             <li><a href="{% url 'workout_log_detail' log.pk %}">
-                {{ log.workout|capfirst }} {{ log.date_started|time }} {{ log.date_started|date }}</a></li>
+                {{ log.workout|capfirst }} {{ log.date|date }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

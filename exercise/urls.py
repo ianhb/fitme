@@ -4,7 +4,7 @@ from exercise import views
 
 exercise_list_urls = [
     url(r'^(?P<filter_type>\w+)/(?P<filter_main>\w+)/$', views.list_exercises, name='list_exercises'),
-    url(r'^(?P<filter_type>\w+)/(?P<filter_main>\w+)/(?P<filter>\w+)/$',
+    url(r'^(?P<filter_type>\w+)/(?P<filter_main>\w+)/(?P<second_filter>\w+)/$',
         views.list_exercises, name='list_exercises'),
 ]
 
@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^move_up/(?P<pk>[0-9]+)/', views.move_exercise_up, name='move_up'),
     url(r'^link/(?P<pk>[0-9]+)/', views.link, name='link'),
     url(r'^unlink/(?P<pk>[0-9]+)/', views.unlink, name='unlink'),
+    url(r'^remove_from_workout/(?P<pk>[0-9]+)/', views.remove_from_workout, name='remove_from_workout'),
 
     url(r'^list/', include(exercise_list_urls)),
     url(r'^search/exercise/', views.search_exercises, name='exercise_search'),
