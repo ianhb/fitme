@@ -5,9 +5,13 @@ from exercise.models import SetLog, MuscleGroup, Equipment
 register = Library()
 
 
-@register.filter(name='times')
-def times(number):
-    return range(1, number + 1)
+@register.filter(name='max_times')
+def max_times(entries):
+    max = entries[0][0].goal_sets
+    for entry in entries:
+        if entry[0].goal_sets > max:
+            max = entry[0].goal_sets
+    return range(1, max + 1)
 
 
 @register.filter(name='get_sets')
@@ -34,11 +38,10 @@ def get_item(dictionary, key):
 
 
 @register.simple_tag
-def get_log_value(last_log, exercise, set_no, type):
-    if exercise in last_log:
-        ex_log = last_log[exercise]
-        if len(ex_log) > set_no - 1:
-            set_log = ex_log[set_no - 1]
+def get_log_value(log, set_no, type):
+    if log is not None:
+        if len(log) > set_no - 1:
+            set_log = log[set_no - 1]
             if type in set_log:
                 return set_log[type]
 

@@ -70,7 +70,7 @@ class Regimen(models.Model):
 
 class WorkoutLog(models.Model):
     user = models.ForeignKey(User)
-    date = models.DateField()
+    date = models.DateTimeField()
     duration = models.FloatField()
     workout = models.ForeignKey(Workout)
 

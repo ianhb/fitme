@@ -37,7 +37,7 @@ def exercise_home(request):
     if request.user.is_authenticated():
         user_workouts = Workout.objects.filter(user=request.user).order_by('log_count').reverse()
 
-        user_logs = WorkoutLog.objects.filter(user=request.user).order_by('date')
+        user_logs = WorkoutLog.objects.filter(user=request.user).order_by('date').reverse()
 
         user_exercise_logs = ExerciseLog.objects.filter(log__in=user_logs).annotate(exercise_count=Count('exercise'))
 
@@ -128,16 +128,35 @@ def record_workout(request, pk=None):
 
         return HttpResponseRedirect(reverse('workout_logs'))
 
-    last_log = WorkoutLog.objects.filter(user=request.user, workout=workout)
-    last_sets = {}
-    if last_log.count() > 0:
-        for exercise_log in last_log.order_by('date').reverse()[0].exerciselog_set.all():
-            last_sets[exercise_log.order] = exercise_log.setlog_set.values('weight', 'reps', 'rest')
+    set_groups = []
+    exercise_log_list = ExerciseLog.objects.filter(log__user=request.user)
+    exercise_log_list = exercise_log_list.filter(log__workout=workout)
+    exercise_log_list = exercise_log_list.annotate(num_sets=Count('setlog')).order_by('log__date').reverse()
+
+    entry_list = exercise_log_list.filter(exercise=entries[0].exercise)
+    entry_list = entry_list.filter(num_sets=entries[0].goal_sets)
+    if entry_list.count() > 0:
+        set_list = [(entries[0], entry_list[0].setlog_set.values('weight', 'reps', 'rest'))]
+    else:
+        set_list = [(entries[0], None)]
+
+    for entry in entries[1:]:
+        entry_list = exercise_log_list.filter(exercise=entry.exercise)
+        entry_list = entry_list.filter(num_sets=entry.goal_sets)
+        if entry_list.count() > 0:
+            tup = (entry, entry_list[0].setlog_set.values('weight', 'reps', 'rest'))
+        else:
+            tup = (entry, None)
+        if entry.linked_above:
+            set_list.append(tup)
+        else:
+            set_groups.append(set_list)
+            set_list = [tup]
+    set_groups.append(set_list)
 
     context = {
         'workout': workout,
-        'entries': entries,
-        'last_sets': last_sets
+        'set_groups': set_groups
     }
 
     return render(request, 'exercise/log_workout.html', context)
@@ -308,7 +327,7 @@ def exercise_detail(request, pk):
         if exercise_logs.count() > 0:
             context['logs'] = 'true'
             set_logs = SetLog.objects.filter(log_entry__in=exercise_logs)
-            context['last_logged'] = set_logs.order_by('log_entry__log__date')[0]
+            context['last_logged'] = set_logs.order_by('log_entry__log__date').reverse()[0]
             context['max_logged'] = set_logs.order_by('weight').reverse()[0]
             set_logs = set_logs.values('log_entry', 'log_entry__log__date').annotate(
                     work_max=Max(F('weight') + (F('weight') * F('reps') * 1.0 / 30.0)))
