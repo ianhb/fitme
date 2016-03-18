@@ -1,0 +1,40 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}Create Routine{% endblock %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <p class="error">Error Creating Routine</p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="name">Name: </label>
+        <input id="name" name="name" type="text"><br>
+
+        <label for="public">Make Routine Public? </label>
+        <input id="public" name="public" type="checkbox"><br>
+
+        <label for="type">Routine Type: </label>
+        <select id="type" name="type">
+            <option value="0" selected>Transformation</option>
+            <option value="1">Bulking</option>
+            <option value="2">Cutting</option>
+        </select><br>
+
+        <label for="diff">Difficulty: </label>
+        <select id="diff" name="diff">
+            <option value="0">Beginner</option>
+            <option value="1">Intermediate</option>
+            <option value="2">Advanced</option>
+        </select><br>
+
+        <label for="desc">Description: </label><br>
+        <textarea id="desc" name="desc" rows="4"></textarea><br>
+
+        <input type="submit" value="Create">
+
+    </form>
+
+{% endblock %}

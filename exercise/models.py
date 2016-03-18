@@ -37,6 +37,9 @@ class Routine(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     public = models.BooleanField(default=False)
+    type = models.IntegerField(default=0)
+    difficulty = models.IntegerField(default=0)
+    description = models.TextField(blank=True, default='')
     followers = models.ManyToManyField(User, related_name="followers")
 
     def __unicode__(self):

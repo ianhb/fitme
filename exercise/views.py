@@ -396,7 +396,6 @@ def log_detail(request, pk):
 
 @login_required
 def my_routines(request):
-    # TODO
     routines = Routine.objects.filter(creator=request.user)
 
     context = {
@@ -409,7 +408,6 @@ def my_routines(request):
 
 @login_required
 def followed_routines(request):
-    # TODO
     routines = Routine.objects.filter(followers=request.user)
 
     context = {
@@ -422,8 +420,6 @@ def followed_routines(request):
 
 def routine_detail(request, pk):
     routine = get_object_or_404(Routine, pk=pk)
-    # TODO
-
     if request.user.is_authenticated() and request.user == routine.creator:
 
         workouts = routine.workout_set.all().order_by('name')
@@ -473,15 +469,28 @@ def search_routines(request):
     return render(request, 'exercise/routines/routine_search.html', context)
 
 
+@login_required
 def create_routine(request):
     # TODO
-    return render(request, 'exercise/base.html')
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        description = request.POST['desc']
+        difficulty = request.POST['diff']
+        goal = request.POST['type']
+        public = request.POST['public']
+        routine = Routine(name=name, description=description, creator=request.user, public=public,
+                          difficulty=difficulty, type=goal)
+        routine.save()
+        routine.followers.add(request.user)
+
+        return HttpResponseRedirect(reverse('routine_detail', kwargs={'pk': routine.pk}))
+
+    return render(request, 'exercise/routines/routine_create.html')
 
 
 @login_required
 def follow_routine(request, pk):
-    # TODO
-
     routine = get_object_or_404(Routine, pk=pk)
     if routine.public:
         routine.followers.add(request.user)
@@ -493,7 +502,6 @@ def follow_routine(request, pk):
 
 @login_required
 def unfollow_routine(request, pk):
-    # TODO
     routine = get_object_or_404(Routine, pk=pk)
 
     if routine.creator != request.user:

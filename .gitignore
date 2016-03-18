@@ -70,3 +70,4 @@ media/
 misc/
 
 container_settings.json
+connectToServer.sh

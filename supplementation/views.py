@@ -19,8 +19,6 @@ def supplement_home(request):
 
 @login_required
 def log_supplement_list(request):
-    # TODO
-
     supp_list = Supplement.objects.all()
 
     context = {
@@ -32,8 +30,6 @@ def log_supplement_list(request):
 
 @login_required
 def log_supplement(request, pk):
-    # TODO
-
     supplement = get_object_or_404(Supplement, pk=pk)
 
     if request.method == 'POST':
@@ -69,8 +65,6 @@ def log_supplement(request, pk):
 
 @login_required
 def my_supplements(request):
-    # TODO
-
     all_supps = SupplementLog.objects.filter(user=request.user)
 
     currents = all_supps.filter(date_ended__isnull=True)
@@ -95,7 +89,6 @@ def my_supplements(request):
 
 @login_required
 def end_log_set(request, pk):
-    # TODO
     log = get_object_or_404(SupplementLog, pk=pk)
 
     if request.method == 'POST':
@@ -117,8 +110,6 @@ def end_log_set(request, pk):
 
 
 def search_supplements(request):
-    # TODO
-
     supplements = Supplement.objects.all().order_by('name')
     supplement_json = json.dumps(list(supplements.values('pk', 'name', 'category', 'brand')), cls=DjangoJSONEncoder)
 
@@ -131,16 +122,12 @@ def search_supplements(request):
 
 
 def supplement_list(request):
-    # TODO
-
     context = {'supplements': Supplement.objects.all().order_by('use_count')}
 
     return render(request, 'supplementation/supplement_list.html', context)
 
 
 def supplement_detail(request, pk):
-    # TODO
-
     supplement = get_object_or_404(Supplement, pk=pk)
 
     context = {'supplement': supplement}
@@ -149,8 +136,6 @@ def supplement_detail(request, pk):
 
 
 def supplement_category_detail(request, pk):
-    # TODO
-
     category = get_object_or_404(SupplementCategory, pk=pk)
 
     context = {'category': category,

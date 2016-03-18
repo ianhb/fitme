@@ -1,6 +1,5 @@
 {% extends 'exercise/base.html' %}
 {% load staticfiles %}
-{% load exercise_tags %}
 
 {% block head %}
     <script type="application/javascript" src="{% static "exercise/routine_search_filter.js" %}">
@@ -16,7 +15,6 @@
     <label for="name_search">Name: </label>
     <input name="name_search" id="name_search" type="text" oninput="onClick({{ routine_json }})">
 
-
     <table id="routine_table">
         <tr>
             <td>Name</td>
@@ -30,7 +28,4 @@
             </tr>
         {% endfor %}
     </table>
-
-
-
 {% endblock %}
