@@ -1,0 +1,36 @@
+{% extends 'exercise/base.html' %}
+{% load staticfiles %}
+{% load exercise_tags %}
+
+{% block head %}
+    <script type="application/javascript" src="{% static "exercise/routine_search_filter.js" %}">
+    </script>
+{% endblock %}
+
+{% block title %}Find Routines{% endblock %}
+
+{% block content %}
+
+    <h3>Find Routine</h3>
+
+    <label for="name_search">Name: </label>
+    <input name="name_search" id="name_search" type="text" oninput="onClick({{ routine_json }})">
+
+
+    <table id="routine_table">
+        <tr>
+            <td>Name</td>
+            <td>Followers</td>
+        </tr>
+
+        {% for routine in routines %}
+            <tr>
+                <td><a href="{% url 'routine_detail' routine.pk %}">{{ routine.name|capfirst }}</a></td>
+                <td>{{ routine.follower_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+
+{% endblock %}

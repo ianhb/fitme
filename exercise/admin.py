@@ -46,5 +46,5 @@ class ExerciseLogAdmin(admin.ModelAdmin):
 
 admin.site.register(Equipment)
 admin.site.register(MuscleGroup)
-admin.site.register(Regimen)
+admin.site.register(Routine)
 admin.site.register(WorkoutEntry)

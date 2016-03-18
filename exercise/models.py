@@ -31,8 +31,21 @@ class Exercise(models.Model):
         return self.name
 
 
+class Routine(models.Model):
+    creator = models.ForeignKey(User, related_name="creator")
+    name = models.CharField(max_length=255)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+    public = models.BooleanField(default=False)
+    followers = models.ManyToManyField(User, related_name="followers")
+
+    def __unicode__(self):
+        return self.name
+
+
 class Workout(models.Model):
     user = models.ForeignKey(User)
+    routine = models.ForeignKey(Routine, blank=True, null=True, default=None)
     name = models.CharField(max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField(default=False)
@@ -58,14 +71,6 @@ class WorkoutEntry(models.Model):
     def __unicode__(self):
         return "Workout: " + self.workout.name + ", Exercise: " + self.exercise.name + ", Order: " + str(
                 self.order_in_workout)
-
-
-class Regimen(models.Model):
-    user = models.ForeignKey(User)
-    name = models.CharField(max_length=255)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
-    workouts = models.ManyToManyField(Workout)
 
 
 class WorkoutLog(models.Model):

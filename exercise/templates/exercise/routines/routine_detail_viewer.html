@@ -1,0 +1,23 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}{{ routine.name|capfirst }}{% endblock %}
+
+{% block content %}
+    <h2>{{ routine.name|capfirst }}</h2>
+
+    <h4>Created by: {{ routine.creator.username|capfirst }}</h4>
+    <h4>Last Modified: {{ routine.date_modified|date }}</h4>
+    {% if followed %}
+        <h4><a href="{% url 'routine_unfollow' routine.pk %}">Un-follow</a></h4>
+    {% else %}
+        <h4><a href="{% url 'routine_follow' routine.pk %}">Follow</a></h4>
+    {% endif %}
+
+    <ol>
+        {% for workout in workouts %}
+            <li><a href="{% url 'workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a></li>
+        {% endfor %}
+    </ol>
+
+
+{% endblock %}

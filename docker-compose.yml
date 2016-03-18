@@ -4,6 +4,8 @@ db:
     environment:
         POSTGRES_USER: 810labs
         POSTGRES_PASSWORD: fitmepass
+    ports:
+        - "5432:5432"
 web:
     restart: always
     build: .

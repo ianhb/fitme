@@ -14,8 +14,16 @@
         <input id="name" name="name" type="text"><br>
         <label for="public">Make Workout Public? </label>
         <input id="public" name="public" type="checkbox"><br>
+        <label for="routine_select">Routine: </label>
+        <select id="routine_select" name="routine_select">
+            <option value=-1 selected>None</option>
+            {% for routine in routines %}
+                <option value="{{ routine.pk }}">{{ routine.name|capfirst }}</option>
+            {% endfor %}
+        </select><br>
         <label for="desc_and_notes">Description and Notes: </label><br>
         <textarea id="desc_and_notes" name="desc_and_notes" rows="4"></textarea><br>
+
 
         <input type="submit" value="Create">
     </form>

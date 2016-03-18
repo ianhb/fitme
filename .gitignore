@@ -68,3 +68,5 @@ db.sqlite3
 media/
 
 misc/
+
+container_settings.json

@@ -1,0 +1,26 @@
+{% extends 'exercise/base.html' %}
+
+{% block title %}{{ routine.name|capfirst }}{% endblock %}
+
+{% block content %}
+    <h2>{{ routine.name|capfirst }}</h2>
+
+    <h4>Created by: {{ routine.creator.username|capfirst }}</h4>
+    <h4>Last Modified: {{ routine.date_modified|date }}</h4>
+
+
+    <h4>Workouts</h4>
+    <table>
+        <tr>
+            <td>Name</td>
+        </tr>
+        {% for workout in workouts %}
+            <tr>
+                <td><a href="{% url 'workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+
+{% endblock %}

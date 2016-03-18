@@ -15,6 +15,14 @@
             <li class="last"><a href="{% url 'workout_search' %}"><span>Find Workouts</span></a></li>
         </ul>
     </li>
+    <li class="active has-sub"><a><span>Routines</span></a>
+        <ul>
+            <li><a href="{% url 'my_routines' %}"><span>My Routines</span></a></li>
+            <li><a href="{% url 'followed_routines' %}"><span>Followed Routines</span></a></li>
+            <li><a href="{% url 'routine_search' %}"><span>Search Routines</span></a></li>
+            <li><a href="{% url 'create_routine' %}"><span>Create Routines</span></a></li>
+        </ul>
+    </li>
     <li class="active has-sub"><a><span>Exercises</span></a>
         <ul>
             {% get_muscle_groups as muscle_groups %}

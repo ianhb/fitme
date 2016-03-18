@@ -31,4 +31,12 @@ urlpatterns = [
     url(r'^workout_logs/$', views.log_list, name='workout_logs'),
     url(r'^workout_logs/(?P<pk>[0-9]+)/', views.log_detail, name='workout_log_detail'),
 
+    url(r'^routines/my/$', views.my_routines, name='my_routines'),
+    url(r'^routines/followed/$', views.followed_routines, name='followed_routines'),
+    url(r'^routines/(?P<pk>[0-9]+)/', views.routine_detail, name='routine_detail'),
+    url(r'^routines/search/', views.search_routines, name='routine_search'),
+    url(r'^routines/create/', views.create_routine, name='create_routine'),
+    url(r'^routines/follow/(?P<pk>[0-9]+)/', views.follow_routine, name='routine_follow'),
+    url(r'^routines/unfollow/(?P<pk>[0-9]+)/', views.unfollow_routine, name='routine_unfollow'),
+
 ]

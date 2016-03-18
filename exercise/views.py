@@ -4,13 +4,15 @@ import json
 from operator import itemgetter
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import redirect_to_login
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
 from django.db.models import Count, F, Max, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-from exercise.models import Workout, Exercise, MuscleGroup, Equipment, WorkoutEntry, WorkoutLog, ExerciseLog, SetLog
+from exercise.models import Workout, Exercise, MuscleGroup, Equipment, WorkoutEntry, WorkoutLog, ExerciseLog, SetLog, \
+    Routine
 
 
 def illegal_access():
@@ -31,9 +33,14 @@ def get_user_workouts(request):
         return Workout.objects.filter(public=True)
 
 
-def exercise_home(request):
-    # TODO
+def get_user_routines(request):
+    if request.user.is_authenticated():
+        return Routine.objects.filter(Q(creator=request.user) | Q(public=True))
+    else:
+        return Routine.objects.filter(public=True)
 
+
+def exercise_home(request):
     if request.user.is_authenticated():
         user_workouts = Workout.objects.filter(user=request.user).order_by('log_count').reverse()
 
@@ -56,43 +63,45 @@ def exercise_home(request):
 
 
 def workout_detail(request, pk):
-    # TODO
     workout = get_object_or_404(Workout, pk=pk)
     exercise_entries = workout.workoutentry_set.order_by('order_in_workout')
     context = {'workout': workout,
                'exercise_entries': exercise_entries}
-    return render(request, 'exercise/workout_detail.html', context)
+    return render(request, 'exercise/workouts/workout_detail.html', context)
 
 
 @login_required
 def my_workouts(request):
-    # TODO
     workouts = Workout.objects.filter(user=request.user).order_by('name')
-    return render(request, 'exercise/workout_list.html', {'workouts': workouts})
+    return render(request, 'exercise/workouts/workout_list.html', {'workouts': workouts})
 
 
 @login_required
 def create_workout(request):
-    # TODO
     if request.method == 'POST':
         name = request.POST['name']
         if 'desc_and_notes' in request.POST:
             desc = request.POST['desc_and_notes']
         else:
             desc = ''
+
         workout = Workout(name=name, user=request.user, public=('public' in request.POST), description=desc)
+        if int(request.POST['routine_select']) != -1:
+            workout.routine = get_object_or_404(Routine, pk=request.POST['routine_select'])
         workout.save()
         return HttpResponseRedirect(reverse('workout_detail', kwargs={'pk': workout.pk}))
 
-    return render(request, 'exercise/create_workout.html')
+    context = {
+        'routines': Routine.objects.filter(creator=request.user)
+    }
+
+    return render(request, 'exercise/workouts/create_workout.html', context)
 
 
 @login_required
 def record_workout(request, pk=None):
-    # TODO
-
     if pk is None:
-        return render(request, 'exercise/select_logged_workout.html',
+        return render(request, 'exercise/logs/select_logged_workout.html',
                       {'workouts': Workout.objects.filter(user=request.user).order_by('log_count')})
 
     workout = get_object_or_404(Workout, pk=pk)
@@ -159,13 +168,11 @@ def record_workout(request, pk=None):
         'set_groups': set_groups
     }
 
-    return render(request, 'exercise/log_workout.html', context)
+    return render(request, 'exercise/logs/log_workout.html', context)
 
 
 def search_workout(request):
-    # TODO
-
-    workouts = get_user_workouts(request).order_by('log_count')
+    workouts = get_user_workouts(request).order_by('log_count').reverse()
     workout_list = list(workouts.values('pk', 'name', 'date_created', 'log_count'))
     for workout in workout_list:
         exercises = WorkoutEntry.objects.filter(workout=workout['pk'])
@@ -182,7 +189,7 @@ def search_workout(request):
         'workout_json': workout_json
     }
 
-    return render(request, 'exercise/search_workout.html', context)
+    return render(request, 'exercise/workouts/search_workout.html', context)
 
 
 def add_ex_to_workout(exercise, workout, sets, reps, rest, notes):
@@ -215,7 +222,7 @@ def add_to_workout(request, pk):
     if 'workout' in request.GET and workouts.filter(pk=request.GET['workout']).count() > 0:
         context['default_workout'] = int(request.GET['workout'])
 
-    return render(request, 'exercise/add_to_workout.html', context)
+    return render(request, 'exercise/workouts/add_to_workout.html', context)
 
 
 @login_required
@@ -281,7 +288,7 @@ def search_exercises(request):
         'exercises_json': exercises_json
     }
 
-    return render(request, 'exercise/search_exercises.html', context)
+    return render(request, 'exercise/exercises/search_exercises.html', context)
 
 
 def list_exercises(request, filter_type, filter_main, second_filter=None):
@@ -307,8 +314,7 @@ def list_exercises(request, filter_type, filter_main, second_filter=None):
                'filter_type': filter_type,
                'filter_main': filter_main,
                'filter_name': name}
-    # TODO
-    return render(request, 'exercise/exercise_list.html', context)
+    return render(request, 'exercise/exercises/exercise_list.html', context)
 
 
 def human_readable_date(entry):
@@ -317,7 +323,6 @@ def human_readable_date(entry):
 
 
 def exercise_detail(request, pk):
-    # TODO
     exercise = get_object_or_404(Exercise, pk=pk)
 
     context = {'exercise': exercise}
@@ -347,12 +352,11 @@ def exercise_detail(request, pk):
     else:
         context['logs'] = 'false'
 
-    return render(request, 'exercise/exercise_detail.html', context)
+    return render(request, 'exercise/exercises/exercise_detail.html', context)
 
 
 @login_required
 def create_exercise(request):
-    # TODO
     if request.method == 'POST':
         name = request.POST['name']
         description = request.POST['description']
@@ -368,20 +372,17 @@ def create_exercise(request):
 
     context = {'muscle_groups': MuscleGroup.objects.all(),
                'equipment': Equipment.objects.all()}
-    return render(request, 'exercise/create_exercise.html', context)
+    return render(request, 'exercise/exercises/create_exercise.html', context)
 
 
 @login_required
 def log_list(request):
-    # TODO
     context = {'logs': WorkoutLog.objects.filter(user=request.user)}
-    return render(request, 'exercise/log_list.html', context)
+    return render(request, 'exercise/logs/log_list.html', context)
 
 
 @login_required
 def log_detail(request, pk):
-    # TODO
-
     log = get_object_or_404(WorkoutLog, pk=pk)
 
     context = {
@@ -390,4 +391,112 @@ def log_detail(request, pk):
 
     }
 
-    return render(request, 'exercise/log_detail.html', context)
+    return render(request, 'exercise/logs/log_detail.html', context)
+
+
+@login_required
+def my_routines(request):
+    # TODO
+    routines = Routine.objects.filter(creator=request.user)
+
+    context = {
+        'title': "My Routines",
+        'routines': routines
+    }
+
+    return render(request, 'exercise/routines/routine_list.html', context)
+
+
+@login_required
+def followed_routines(request):
+    # TODO
+    routines = Routine.objects.filter(followers=request.user)
+
+    context = {
+        'title': "Followed Routines",
+        'routines': routines
+    }
+
+    return render(request, 'exercise/routines/routine_list.html', context)
+
+
+def routine_detail(request, pk):
+    routine = get_object_or_404(Routine, pk=pk)
+    # TODO
+
+    if request.user.is_authenticated() and request.user == routine.creator:
+
+        workouts = routine.workout_set.all().order_by('name')
+
+        context = {
+            'routine': routine,
+            'workouts': workouts,
+        }
+
+        return render(request, 'exercise/routines/routine_detail_creator.html', context)
+
+    elif routine.public:
+
+        workouts = routine.workout_set.all().order_by('name')
+
+        if request.user.is_authenticated():
+            followed = routine.followers.filter(pk=request.user.pk).exists()
+        else:
+            followed = False
+
+        context = {
+            'routine': routine,
+            'workouts': workouts,
+            'followed': followed,
+        }
+
+        return render(request, 'exercise/routines/routine_detail_viewer.html', context)
+
+    elif request.user.is_authenticated():
+        illegal_access()
+
+    else:
+        return redirect_to_login(reverse('routine_detail', kwargs={'pk': pk}))
+
+
+def search_routines(request):
+    routines = get_user_routines(request).annotate(follower_count=Count('followers')).order_by(
+        'follower_count').reverse()
+    routine_list = list(routines.values('pk', 'name', 'date_created', 'follower_count'))
+    routine_list = json.dumps(routine_list, cls=DjangoJSONEncoder)
+
+    context = {
+        'routines': routines,
+        'routine_json': routine_list
+    }
+
+    return render(request, 'exercise/routines/routine_search.html', context)
+
+
+def create_routine(request):
+    # TODO
+    return render(request, 'exercise/base.html')
+
+
+@login_required
+def follow_routine(request, pk):
+    # TODO
+
+    routine = get_object_or_404(Routine, pk=pk)
+    if routine.public:
+        routine.followers.add(request.user)
+
+        return HttpResponseRedirect(reverse('routine_detail', kwargs={'pk': pk}))
+    else:
+        illegal_access()
+
+
+@login_required
+def unfollow_routine(request, pk):
+    # TODO
+    routine = get_object_or_404(Routine, pk=pk)
+
+    if routine.creator != request.user:
+        routine.followers.remove(request.user)
+
+    return HttpResponseRedirect(reverse('routine_detail', kwargs={'pk': pk}))
