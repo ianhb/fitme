@@ -1,0 +1,43 @@
+{% extends 'nutrition/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Search Foods{% endblock %}
+
+{% block content %}
+
+    <form method="get" action="">
+        <label for="food">Food Name: </label>
+        <input name="food" id="food" type="text">
+
+        <input type="submit" value="Search">
+
+    </form>
+
+    {% if result_foods %}
+
+        <p>All Values are per 100g</p>
+
+        <table id="search_results" width="1000">
+
+            <tr>
+                <td width="60%">Name</td>
+                <td width="10%">Calories</td>
+                <td width="10%">Carbohydrates</td>
+                <td width="10%">Fat</td>
+                <td width="10%">Protein</td>
+            </tr>
+
+            {% for food in result_foods %}
+                <tr>
+                    <td width="60%"><a href="{% url 'food_detail' food.pk %}">{{ food.name }}</a></td>
+                    <td width="10%">{{ food.calories_per_100g }} kcal</td>
+                    <td width="10%">{{ food.carbohydrates_per_100g }}g</td>
+                    <td width="10%">{{ food.fat_per_100g }}g</td>
+                    <td width="10%">{{ food.protein_per_100g }}g</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    {% endif %}
+
+{% endblock %}

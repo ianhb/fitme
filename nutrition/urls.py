@@ -14,9 +14,15 @@ goals_urls = [
     url(r'^set/', views.set_goals, name='set_goals')
 ]
 
+food_urls = [
+    url(r'^search/$', views.search_foods, name='search_foods'),
+    url(r'^(?P<pk>[0-9]+)/', views.food_details, name='food_detail'),
+    url(r'^create/', views.create_food, name='create_food'),
+]
+
 urlpatterns = [
     url(r'^$', views.nutrition_home, name='nutrition_home'),
-    url(r'^search/$', views.search_foods, name='search_foods'),
+    url(r'^food/', include(food_urls)),
     url(r'^log/', include(log_urls)),
     url(r'^goals/', include(goals_urls))
 ]
