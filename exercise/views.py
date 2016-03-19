@@ -458,7 +458,7 @@ def routine_detail(request, pk):
 def search_routines(request):
     routines = get_user_routines(request).annotate(follower_count=Count('followers')).order_by(
         'follower_count').reverse()
-    routine_list = list(routines.values('pk', 'name', 'date_created', 'follower_count'))
+    routine_list = list(routines.values('pk', 'name', 'date_created', 'follower_count', 'type', 'difficulty'))
     routine_list = json.dumps(routine_list, cls=DjangoJSONEncoder)
 
     context = {
@@ -471,8 +471,6 @@ def search_routines(request):
 
 @login_required
 def create_routine(request):
-    # TODO
-
     if request.method == 'POST':
         name = request.POST['name']
         description = request.POST['desc']

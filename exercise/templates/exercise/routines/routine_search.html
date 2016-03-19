@@ -4,6 +4,7 @@
 {% block head %}
     <script type="application/javascript" src="{% static "exercise/routine_search_filter.js" %}">
     </script>
+
 {% endblock %}
 
 {% block title %}Find Routines{% endblock %}
@@ -15,17 +16,25 @@
     <label for="name_search">Name: </label>
     <input name="name_search" id="name_search" type="text" oninput="onClick({{ routine_json }})">
 
-    <table id="routine_table">
-        <tr>
-            <td>Name</td>
-            <td>Followers</td>
-        </tr>
+    <label for="type">Routine Type: </label>
+    <select id="type" name="type" onchange="onClick({{ routine_json }})">
+        <option value="-1" selected>Any</option>
+        <option value="0">Transformation</option>
+        <option value="1">Bulking</option>
+        <option value="2">Cutting</option>
+    </select>
 
-        {% for routine in routines %}
-            <tr>
-                <td><a href="{% url 'routine_detail' routine.pk %}">{{ routine.name|capfirst }}</a></td>
-                <td>{{ routine.follower_count }}</td>
-            </tr>
-        {% endfor %}
+    <label for="diff">Difficulty: </label>
+    <select id="diff" name="diff" onchange="onClick({{ routine_json }})">
+        <option value="-1" selected>Any</option>
+        <option value="0">Beginner</option>
+        <option value="1">Intermediate</option>
+        <option value="2">Advanced</option>
+    </select><br>
+
+    <table id="routine_table" width="500">
     </table>
+    <script type="application/javascript">
+        document.onload = onClick({{ routine_json|safe }});
+    </script>
 {% endblock %}

@@ -68,8 +68,6 @@ def new_bf(request):
 
 @login_required
 def edit_account(request):
-    # TODO
-
     fitme_user = request.user.fitmeuser
 
     if request.method == 'POST':
