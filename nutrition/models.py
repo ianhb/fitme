@@ -16,6 +16,7 @@ class Food(models.Model):
     vitamin_c_per_100g = models.IntegerField()
     iron_per_100g = models.IntegerField()
     calcium_per_100g = models.IntegerField()
+    log_count = models.BigIntegerField(default=0)
 
     def __unicode__(self):
         return self.name
@@ -26,10 +27,21 @@ class Serving(models.Model):
     name = models.CharField(max_length=128)
     scalar = models.FloatField()
 
+    def __unicode__(self):
+        return self.name
 
-class NutritionLog(models.Model):
+
+class FoodLog(models.Model):
     user = models.ForeignKey(User)
-    date = models.DateTimeField()
+    date = models.DateField(auto_created=True)
+    food = models.ForeignKey(Food)
+    serving = models.ForeignKey(Serving)
+    serving_count = models.FloatField()
+
+
+class DayLog(models.Model):
+    user = models.ForeignKey(User)
+    date = models.DateField()
     total_calories = models.IntegerField()
     total_carbohydrates = models.IntegerField()
     total_fat = models.IntegerField()
@@ -38,14 +50,3 @@ class NutritionLog(models.Model):
     total_vitamin_c = models.IntegerField()
     total_iron = models.IntegerField()
     total_calcium = models.IntegerField()
-
-
-class Meal(models.Model):
-    log = models.ForeignKey(NutritionLog, on_delete=models.CASCADE)
-    last_modified = models.DateTimeField(auto_now=True)
-
-
-class NutritionEntry(models.Model):
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
-    number_of_servings = models.FloatField()
-    serving = models.ForeignKey(Serving)

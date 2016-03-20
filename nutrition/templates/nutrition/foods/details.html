@@ -1,0 +1,71 @@
+{% extends 'nutrition/base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="application/javascript" src="{% static 'nutrition/food_details_servings_changer.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ food.name|capfirst }}{% endblock %}
+
+{% block content %}
+    <h2>{{ food.name|capfirst }}</h2>
+
+    <div style="padding-right: 10%; float: left" >
+        <h3>Nutrition Information: </h3>
+
+        <label for="servings">Servings</label>
+        <input id="servings" type="number" step="0.01" value="1" onchange="onClick()">
+
+        <select id="serving_select" onchange="onClick()" title="serving_unit">
+            {% for serving in servings %}
+                <option value="{{ serving.scalar }}">{{ serving.name|capfirst }}</option>
+            {% endfor %}
+        </select>
+
+        <p id="calories"></p>
+        <p id="carbs"></p>
+        <p id="fat"></p>
+        <p id="protein"></p>
+        <p id="vita"></p>
+        <p id="vitc"></p>
+        <p id="iron"></p>
+        <p id="calc"></p>
+
+        <input type="hidden" readonly id="defcalories" value="{{ food.calories_per_100g }}">
+        <input type="hidden" readonly id="defcarb" value="{{ food.carbohydrates_per_100g }}">
+        <input type="hidden" readonly id="deffat" value="{{ food.fat_per_100g }}">
+        <input type="hidden" readonly id="defpro" value="{{ food.protein_per_100g }}">
+        <input type="hidden" readonly id="defvita" value="{{ food.vitamin_a_per_100g }}">
+        <input type="hidden" readonly id="defvitc" value="{{ food.vitamin_c_per_100g }}">
+        <input type="hidden" readonly id="defiron" value="{{ food.iron_per_100g }}">
+        <input type="hidden" readonly id="defcalc" value="{{ food.calcium_per_100g }}">
+
+        <script type="application/javascript">
+            window.onload = onClick()
+        </script>
+    </div>
+
+    <div>
+        {% if food_logs %}
+            <h3>Previous logs</h3>
+            <table>
+                <tr>
+                    <td>Date</td>
+                    <td>Servings</td>
+                    <td>Unit</td>
+                </tr>
+
+                {% for log in food_logs %}
+                    <tr>
+                        <td>{{ log.date|date }}</td>
+                        <td>{{ log.serving_count }}</td>
+                        <td>{{ log.serving.name }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+
+
+
+{% endblock %}

@@ -13,6 +13,5 @@ class FoodAdmin(admin.ModelAdmin):
     inlines = (ServingInline,)
 
 admin.site.register(Serving)
-admin.site.register(NutritionLog)
-admin.site.register(Meal)
-admin.site.register(NutritionEntry)
+admin.site.register(FoodLog)
+admin.site.register(DayLog)
