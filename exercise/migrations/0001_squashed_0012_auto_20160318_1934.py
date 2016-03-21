@@ -8,12 +8,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    replaces = [(b'exercise', '0001_initial'), (b'exercise', '0002_workoutentry_notes'),
-                (b'exercise', '0003_auto_20160119_2124'), (b'exercise', '0004_auto_20160120_1923'),
-                (b'exercise', '0005_auto_20160120_1923'), (b'exercise', '0006_auto_20160120_1925'),
-                (b'exercise', '0007_auto_20160120_1940'), (b'exercise', '0008_auto_20160120_1944'),
-                (b'exercise', '0009_auto_20160120_1946'), (b'exercise', '0010_auto_20160120_2006'),
-                (b'exercise', '0011_auto_20160318_1932'), (b'exercise', '0012_auto_20160318_1934')]
 
     initial = True
 

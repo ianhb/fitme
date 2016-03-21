@@ -5,6 +5,9 @@ from django.db import models
 
 
 # Create your models here.
+import exercise.models as exercise_models
+
+
 class Food(models.Model):
     name = models.CharField(max_length=255)
     barcode = models.IntegerField(default=0)
@@ -50,3 +53,18 @@ class DayLog(models.Model):
     total_vitamin_c = models.IntegerField()
     total_iron = models.IntegerField()
     total_calcium = models.IntegerField()
+
+
+class Goal(models.Model):
+    user = models.ForeignKey(User)
+    date_set = models.DateField(auto_now=True)
+    active = models.BooleanField(default=True)
+    type = models.CharField(max_length=1, choices=exercise_models.routine_type, default='M')
+    calories = models.IntegerField()
+    carbohydrates = models.IntegerField()
+    fat = models.IntegerField()
+    protein = models.IntegerField()
+    vitamin_a = models.IntegerField()
+    vitamin_c = models.IntegerField()
+    iron = models.IntegerField()
+    calcium = models.IntegerField()

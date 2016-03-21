@@ -15,3 +15,4 @@ class FoodAdmin(admin.ModelAdmin):
 admin.site.register(Serving)
 admin.site.register(FoodLog)
 admin.site.register(DayLog)
+admin.site.register(Goal)

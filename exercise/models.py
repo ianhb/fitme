@@ -3,6 +3,18 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
+routine_type = (
+    ('M', 'Maintenance'),
+    ('B', 'Bulking'),
+    ('C', 'Cutting')
+)
+
+difficulty = (
+    ('B', 'Beginner'),
+    ('I', 'Intermediate'),
+    ('A', 'Advanced')
+)
+
 
 # Create your models here.
 class MuscleGroup(models.Model):
@@ -37,8 +49,8 @@ class Routine(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     public = models.BooleanField(default=False)
-    type = models.IntegerField(default=0)
-    difficulty = models.IntegerField(default=0)
+    type = models.CharField(default='M', max_length=1, choices=routine_type)
+    difficulty = models.CharField(default='B', max_length=1, choices=difficulty)
     description = models.TextField(blank=True, default='')
     followers = models.ManyToManyField(User, related_name="followers")
 

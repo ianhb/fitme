@@ -1,0 +1,166 @@
+{% extends 'nutrition/base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="application/javascript" src="{% static 'nutrition/goal_calculator.js' %}"></script>
+{% endblock %}
+
+{% block title %}Set New Goals{% endblock %}
+
+{% block content %}
+
+    <table>
+        <caption>Calculate Calories</caption>
+        <tr>
+            <td><label for="ht_ft">Height</label></td>
+            <td>
+                <input readonly id="ht_ft" name="ht_ft" type="number" value="{{ feet }}">
+                <label for="ht_ft"> ft </label>
+            </td>
+            <td>
+                <input readonly id="ht_in" name="ht_in" type="number" value="{{ inch }}">
+                <label for="ht_in"> in</label>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="age">Age: </label></td>
+            <td><input readonly id="age" type="number" value="{{ fitme_user.age }}"></td>
+        </tr>
+        <tr>
+            <td><label for="gender">Gender: </label></td>
+            <td><input type="text" id="gender" readonly value="{{ fitme_user.get_gender_display|lower|capfirst }}"></td>
+        </tr>
+        <tr>
+            <td><label for="weight">Weight: </label></td>
+            <td>
+                <input id="weight" type="number" value="{{ weight }}" step="0.1" oninput="onSuggestChange()">
+                <label for="weight"> lb</label>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="bf">Body Fat: </label></td>
+            <td>
+                <input id="bf" type="number" step="0.1" value="{{ bf }}" oninput="onSuggestChange()">
+                <label for="bf">%</label>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="goal">Goal: </label></td>
+            <td>
+                <select id="goal" onchange="onSuggestChange()">
+                    <option value="0">Maintenance</option>
+                    <option value="1">Bulking</option>
+                    <option value="-1">Cutting</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="activity">Activity Level: </label></td>
+            <td>
+                <select id="activity" onchange="onSuggestChange()">
+                    <option value="1.2">Sedentary (little to no exercise)</option>
+                    <option value="1.35">Light Activity (1-3x per week of light activity)</option>
+                    <option value="1.5">Moderate Activity(3-5x per week of moderate activity)</option>
+                    <option value="1.75">Heavy Activity(6-7x per week of intense activity)</option>
+                    <option value="1.9">Incredible Activity(2x per day, 6-7x per week of intense activity)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="bmr">Basal Metabolic Rate: </label></td>
+            <td><input id="bmr" type="number" readonly></td>
+        </tr>
+        <tr>
+            <td><label for="rmr">Resting Metabolic Rate: </label></td>
+            <td><input id="rmr" type="number" readonly></td>
+        </tr>
+        <tr>
+            <td><label for="suggested_cal">Suggested Calories: </label></td>
+            <td><input id="suggested_cal" type="number" readonly></td>
+        </tr>
+
+    </table>
+
+    <br>
+    <br>
+
+    <form action="" method="post">
+    {% csrf_token %}
+        <table>
+            <caption>Set Goals</caption>
+            <tr>
+                <td><label for="calorie_goal">Calorie Goal: </label></td>
+                <td><input id="calorie_goal" name="calorie_goal" type="number" oninput="onCalorieChange()"></td>
+            </tr>
+            <tr>
+                <td><label for="carb_grams">Carbohydrates: </label></td>
+                <td>
+                    <input id="carb_grams" name="carb_grams" type="number" oninput="onMacroChange(this)">
+                    <label for="carb_grams">g </label>
+                </td>
+                <td>
+                    <input id="carb_percent" type="number" oninput="onMacroChange(this)" value="50">
+                    <label for="carb_percent">% of calories</label>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="fat_grams">Fat: </label></td>
+                <td>
+                    <input id="fat_grams" name="fat_grams" type="number" oninput="onMacroChange(this)">
+                    <label for="fat_grams">g </label>
+                </td>
+                <td>
+                    <input id="fat_percent" type="number" oninput="onMacroChange(this)" value="25">
+                    <label for="fat_percent">% of calories</label>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="protein_grams">Protein: </label></td>
+                <td>
+                    <input id="protein_grams" name="protein_grams" type="number" oninput="onMacroChange(this)">
+                    <label for="protein_grams">g </label>
+                </td>
+                <td>
+                    <input id="protein_percent" type="number" oninput="onMacroChange(this)" value="25">
+                    <label for="protein_percent">% of calories</label>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="vita">Vitamin A: </label> </td>
+                <td>
+                    <input id="vita" name="vita" type="number" value="100">
+                    <label for="vita">% DV</label>
+                </td>
+            </tr>
+                        <tr>
+                <td><label for="vitc">Vitamin C: </label> </td>
+                <td>
+                    <input id="vitc" name="vitc" type="number" value="100">
+                    <label for="vitc">% DV</label>
+                </td>
+            </tr>
+                        <tr>
+                <td><label for="iron">Iron: </label> </td>
+                <td>
+                    <input id="iron" name="iron" type="number" value="100">
+                    <label for="iron">% DV</label>
+                </td>
+            </tr>
+                        <tr>
+                <td><label for="calc">Calcium: </label> </td>
+                <td>
+                    <input id="calc" name="calc" type="number" value="100">
+                    <label for="calc">% DV</label>
+                </td>
+            </tr>
+        </table>
+        <input hidden readonly id="diet_type" name="diet_type" type="text" title="diet_type">
+
+        <input type="submit" value="Set">
+
+    </form>
+    <script type="application/javascript">
+        window.onload = onSuggestChange();
+    </script>
+
+{% endblock %}
