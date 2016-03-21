@@ -103,7 +103,7 @@ def create_account(request):
         if form.is_valid():
             new_user = form.save()
             height = (int(request.POST['height_feet']) * 12) + int(request.POST['height_inches'])
-            fitme_data = FitMeUser(user=new_user, height=height, age=request.POST['age'])
+            fitme_data = FitMeUser(user=new_user, height=height, age=request.POST['age'], gender=request.POST['gender'])
             fitme_data.save()
             new_user = auth.authenticate(username=request.POST['username'],
                                          password=request.POST['password1'])

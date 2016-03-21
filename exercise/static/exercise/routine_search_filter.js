@@ -45,7 +45,7 @@ function onClick(routine_json) {
         typeCell = row.insertCell(2);
         diffCell = row.insertCell(3);
         var link = document.createElement('a');
-        link.setAttribute('href', '/exercise/routine/' + filtered_routines[i]['pk']);
+        link.setAttribute('href', '/exercise/routines/' + filtered_routines[i]['pk']);
         link.appendChild(document.createTextNode(filtered_routines[i]['name']));
         nameCell.appendChild(link);
         countCell.innerText = filtered_routines[i]['follower_count'];
