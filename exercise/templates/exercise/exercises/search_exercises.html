@@ -11,6 +11,9 @@
 
 
 {% block content %}
+
+    <label for="name_box">Name: </label>
+    <input id="name_box" name="name_box" type="text" oninput="onClick({{ exercises_json }})">
     {% get_muscle_groups as muscle_groups %}
     <label for="muscle_select">Muscle Group: </label>
     <select id="muscle_select" name="muscle_select" onchange="onClick({{ exercises_json }})">

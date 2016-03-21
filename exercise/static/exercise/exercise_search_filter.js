@@ -5,6 +5,9 @@
 
 function onClick(exercises) {
 
+    var name_box = document.getElementById('name_box');
+    var name = name_box.value.toLowerCase();
+
     var muscle_box = document.getElementById('muscle_select');
     var muscle_pk = muscle_box.options[muscle_box.selectedIndex].value;
 
@@ -16,7 +19,7 @@ function onClick(exercises) {
 
     for (var i = 0; i < exercises.length; i++) {
         var exercise = exercises[i];
-        if ((muscle_pk == -1 || exercise['muscles_worked'] == muscle_pk) && (equipment_pk == -1 || exercise['equipment'] == equipment_pk)) {
+        if ((exercise['name'].toLowerCase().indexOf(name) != -1) && (muscle_pk == -1 || exercise['muscles_worked'] == muscle_pk) && (equipment_pk == -1 || exercise['equipment'] == equipment_pk)) {
             if ($.inArray(exercises[i]['pk'], filtered_exercises) === -1) {
                 filtered_exercises.push(exercises[i]['pk']);
                 named_exercises.push(exercises[i]['name']);
