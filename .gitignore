@@ -67,3 +67,4 @@ misc/
 
 container_settings.json
 connectToServer.sh
+secret_key.txt

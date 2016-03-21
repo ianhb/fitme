@@ -52,12 +52,7 @@
             </div>
             <br>
 
-            {% if request.GET|get_item:"workout" != None %}
-                <a href="{% url 'add_to_workout' exercise.pk %}?workout={{ request.GET|get_item:"workout" }}">Add to
-                    Workout</a>
-            {% else %}
-                <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
-            {% endif %}
+            <a href="{% url 'add_to_workout' exercise.pk %}">Add to Workout</a>
 
             <p>{{ exercise.description|capfirst }}</p>
 

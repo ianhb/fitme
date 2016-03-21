@@ -22,7 +22,7 @@ import exercise.urls as exerciseurls
 import nutrition.urls as nutritionurls
 import other.urls as otherurls
 import supplementation.urls as supplementurls
-from fitme import settings
+from fitme import test_settings
 from other import views
 
 urlpatterns = [
@@ -32,4 +32,4 @@ urlpatterns = [
     url(r'^exercise/', include(exerciseurls)),
     url(r'^nutrition/', include(nutritionurls)),
     url(r'^supplements/', include(supplementurls)),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] + static(test_settings.MEDIA_URL, document_root=test_settings.MEDIA_ROOT)

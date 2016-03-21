@@ -3,12 +3,18 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
+genders = (
+    ('M', 'MALE'),
+    ('F', 'FEMALE')
+)
+
 
 # Create your models here.
 class FitMeUser(models.Model):
     user = models.OneToOneField(User)
     age = models.IntegerField()
     height = models.IntegerField()
+    gender = models.CharField(choices=genders, max_length=1)
 
 
 class WeightLog(models.Model):
