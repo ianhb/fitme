@@ -109,6 +109,19 @@ else:
         }
     }
 
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ianhblakley@gmail.com'
+EMAIL_HOST_PASSWORD = 'Zithlum163!'
+EMAIL_POST = 587
+
+
+ADMINS = [('Ian Blakley', 'ihb9@cornell.edu'), ]
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
