@@ -22,9 +22,9 @@ function onClick() {
     document.getElementById("carbs").innerHTML = "Carbohydrates: " + carbs + " g";
     document.getElementById("fat").innerHTML = "Fat: " + fat + " g";
     document.getElementById("protein").innerHTML = "Protein: " + pro + " g";
-    document.getElementById("vita").innerHTML = "Vitamin A: " + vita + " mcg";
-    document.getElementById("vitc").innerHTML = "Vitamin C: " + vitc + " mcg";
-    document.getElementById("iron").innerHTML = "Iron: " + iron + " mcg";
-    document.getElementById("calc").innerHTML = "Calcium: " + calc + " mcg";
+    document.getElementById("vita").innerHTML = "Vitamin A: " + vita + "% DV";
+    document.getElementById("vitc").innerHTML = "Vitamin C: " + vitc + "% DV";
+    document.getElementById("iron").innerHTML = "Iron: " + iron + "% DV";
+    document.getElementById("calc").innerHTML = "Calcium: " + calc + "% DV";
 
 }

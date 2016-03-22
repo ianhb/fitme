@@ -11,6 +11,7 @@ import exercise.models as exercise_models
 class Food(models.Model):
     name = models.CharField(max_length=255)
     barcode = models.IntegerField(default=0)
+    fs_id = models.IntegerField(unique=True)
     calories_per_100g = models.IntegerField()
     carbohydrates_per_100g = models.IntegerField()
     fat_per_100g = models.IntegerField()

@@ -2,3 +2,5 @@ Django
 psycopg2
 Pillow
 pytz
+gunicorn
+fatsecret

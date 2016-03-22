@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 import exercise.models
+from nutrition import fatsecret_requester
 from nutrition.models import Food, Serving, FoodLog, Goal
 from other.models import WeightLog, BodyFatLog
 
@@ -40,7 +41,7 @@ def search_foods(request):
     # TODO
 
     if request.method == 'GET' and 'food' in request.GET:
-        result_foods = Food.objects.filter(name__contains=request.GET['food']).order_by('log_count')
+        result_foods = fatsecret_requester.search(request.GET['food'])
     else:
         result_foods = None
 
@@ -76,41 +77,6 @@ def view_goals(request):
     return render(request, 'nutrition/base.html')
 
 
-def convert_dv_to_mcg(user, a, c, i, ca):
-
-    a = int(a) / 100.0
-    c = int(c) / 100.0
-    i = int(i) / 100.0
-    ca = int(ca) / 100.0
-
-    if user.gender =='F':
-        mcg_a = a * 700
-        if user.age > 18:
-            mcg_c = c * 75
-            if user.age > 50:
-                mg_iron = i * 8
-                mg_calc = ca * 1300
-            else:
-                mg_iron = i * 18
-                mg_calc = ca * 1000
-        else:
-            mcg_c = c * 65
-            mg_iron = i * 15
-            mg_calc = ca * 1300
-
-    else:
-        mcg_a = a * 900
-        if user.age > 18:
-            mcg_c = c * 90
-            mg_iron = i * 8
-            mg_calc = ca * 1000
-        else:
-            mcg_c = c * 75
-            mg_iron = i * 11
-            mg_calc = ca * 1300
-    return mcg_a, mcg_c, mg_iron, mg_calc
-
-
 @login_required
 def set_goals(request):
     # TODO
@@ -125,13 +91,12 @@ def set_goals(request):
         iron_dv = request.POST['iron']
         calc_dv = request.POST['calc']
         diet_type = request.POST['diet_type']
-        a, c, i, ca = convert_dv_to_mcg(request.user.fitmeuser, vit_a_dv, vit_c_dv, iron_dv, calc_dv)
         for g in Goal.objects.filter(user=request.user, active=True):
             g.active = False
             g.save()
 
         user_goal = Goal(user=request.user, calories=calories, carbohydrates=carbs, fat=fat, protein=protein,
-                         vitamin_a=a, vitamin_c=c, iron=i, calcium=ca)
+                         vitamin_a=vit_a_dv, vitamin_c=vit_c_dv, iron=iron_dv, calcium=calc_dv)
         if diet_type == 1:
             user_goal.type = 'B'
         else:
