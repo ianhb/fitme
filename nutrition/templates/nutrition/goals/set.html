@@ -59,10 +59,10 @@
             <td>
                 <select id="activity" onchange="onSuggestChange()">
                     <option value="1.2">Sedentary (little to no exercise)</option>
-                    <option value="1.35">Light Activity (1-3x per week of light activity)</option>
-                    <option value="1.5">Moderate Activity(3-5x per week of moderate activity)</option>
-                    <option value="1.75">Heavy Activity(6-7x per week of intense activity)</option>
-                    <option value="1.9">Incredible Activity(2x per day, 6-7x per week of intense activity)</option>
+                    <option value="1.3">Light Activity (1-3x per week of light activity)</option>
+                    <option value="1.4">Moderate Activity(3-5x per week of moderate activity)</option>
+                    <option value="1.5">Heavy Activity(6-7x per week of intense activity)</option>
+                    <option value="1.6">Incredible Activity(2x per day, 6-7x per week of intense activity)</option>
                 </select>
             </td>
         </tr>
@@ -126,11 +126,20 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <input readonly id="total_percent" name="total_percent" type="number" value="100">
+                    <label for="total_percent">Total Percent</label>
+                </td>
+            </tr>
+            <tr>
                 <td><label for="vita">Vitamin A: </label> </td>
                 <td>
                     <input id="vita" name="vita" type="number" value="100">
                     <label for="vita">% DV</label>
                 </td>
+
             </tr>
                         <tr>
                 <td><label for="vitc">Vitamin C: </label> </td>
@@ -156,7 +165,7 @@
         </table>
         <input hidden readonly id="diet_type" name="diet_type" type="text" title="diet_type">
 
-        <input type="submit" value="Set">
+        <input id="submit_button" type="submit" value="Set">
 
     </form>
     <script type="application/javascript">

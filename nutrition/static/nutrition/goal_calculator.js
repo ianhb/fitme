@@ -84,24 +84,38 @@ function onCalorieChange() {
 }
 
 function onMacroChange(caller) {
-    // TODO: implement changing percentages/grams changes other values
     var calories = document.getElementById('calorie_goal');
     var carb_box = document.getElementById('carb_grams');
     var fat_box = document.getElementById('fat_grams');
-    var protein_box = document.getElementById('protein_percent');
+    var protein_box = document.getElementById('protein_grams');
     var carb_perc_box = document.getElementById('carb_percent');
     var fat_perc_box = document.getElementById('fat_percent');
     var protein_perc_box = document.getElementById('protein_percent');
 
     switch (caller) {
         case carb_box:
+            carb_perc_box.value = Math.round((4 * Number(carb_box.value)) / (Number(calories.value))* 100.0);
+            break;
         case fat_box:
+            fat_perc_box.value = Math.round((9 * Number(fat_box.value)) / (Number(calories.value))* 100.0);
+            break;
         case protein_box:
+            protein_perc_box.value = Math.round((4 * Number(protein_box.value)) / (Number(calories.value))* 100.0);
             break;
         case carb_perc_box:
+            carb_box.value = Math.round((Number(calories.value) / 4) * Number(carb_perc_box.value) / 100.0);
+            break;
         case fat_perc_box:
+            fat_box.value = Math.round((Number(calories.value) / 9) * Number(fat_perc_box.value) / 100.0);
+            break;
         case protein_perc_box:
+            protein_box.value = Math.round((Number(calories.value) / 4) * Number(protein_perc_box.value) / 100.0);
             break;
     }
+
+    var total_box = document.getElementById('total_percent');
+    total_box.value = Number(carb_perc_box.value) + Number(fat_perc_box.value) + Number(protein_perc_box.value);
+    var submit_button = document.getElementById('submit_button');
+    submit_button.disabled = Number(total_box.value) != 100;
 
 }

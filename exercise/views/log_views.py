@@ -83,7 +83,7 @@ def record_workout(request, pk=None):
 
 @login_required
 def log_list(request):
-    context = {'logs': WorkoutLog.objects.filter(user=request.user)}
+    context = {'logs': WorkoutLog.objects.filter(user=request.user).order_by('-date')}
     return render(request, 'exercise/logs/log_list.html', context)
 
 
