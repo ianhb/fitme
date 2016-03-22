@@ -6,3 +6,4 @@ WORKDIR /code
 ADD requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD . /code/
+ADD ./static2/ /usr/src/app/static/

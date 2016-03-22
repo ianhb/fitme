@@ -19,13 +19,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open('secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = os.environ['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -79,28 +78,17 @@ WSGI_APPLICATION = 'fitme.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-if 'DB_ENV_POSTGRES_USER' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': '810labs',
-            'PASSWORD': 'fitmepass',
-            'HOST': 'db',
-            'PORT': 5432,
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': os.environ['DB_ENV_POSTGRES_USER'],
+        'PASSWORD': os.environ['DB_ENV_POSTGRES_PASSWORD'],
+        'HOST': 'db',
+        'PORT': 5432,
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': '810labs',
-            'PASSWORD': 'fitmepass',
-            'HOST': '192.168.99.100',
-            'PORT': 5432,
-        }
-    }
+}
+
 
 
 # Password validation
@@ -147,3 +135,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_ROOT = 'static2'

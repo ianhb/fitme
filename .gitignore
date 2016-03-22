@@ -65,6 +65,8 @@ media/
 
 misc/
 
+static2/
+
 container_settings.json
 connectToServer.sh
 secret_key.txt

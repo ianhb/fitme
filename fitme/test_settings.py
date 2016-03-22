@@ -91,6 +91,14 @@ if 'DB_ENV_POSTGRES_USER' in os.environ:
     }
 else:
     DATABASES = {
+        'ec2': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'postgres',
+            'USER': '810labs',
+            'PASSWORD': 'fitmepass',
+            'HOST': '54.86.124.118',
+            'PORT': 5432,
+        },
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'postgres',
@@ -144,3 +152,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+STATIC_ROOT = 'static2'
