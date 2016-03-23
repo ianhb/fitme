@@ -1,8 +1,10 @@
+import os
+
 from fatsecret import Fatsecret
 
 from nutrition.models import Food, Serving
 
-fs = Fatsecret('5db7dc498c5b4dad8b7ea6281c0cfa57', '815a2331a4394b1196b62335150e3db7')
+fs = Fatsecret(os.environ['fs_consumer'], os.environ['fs_secret'])
 
 
 def search(query):
@@ -17,8 +19,6 @@ def search(query):
             food = get_food(fs_id)
             if food is not None:
                 return_foods.append(food)
-    for food in return_foods:
-        print food.name
     return return_foods
 
 

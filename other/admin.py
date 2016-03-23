@@ -5,14 +5,14 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from other.models import *
 
 
-class FitmeUserInline(admin.StackedInline):
-    model = FitMeUser
+class FitKickUserInline(admin.StackedInline):
+    model = FitKickUser
     can_delete = False
-    verbose_name_plural = 'FitMe User'
+    verbose_name_plural = 'FitKick Users'
 
 
 class UserAdmin(BaseUserAdmin):
-    inlines = (FitmeUserInline,)
+    inlines = (FitKickUserInline,)
 
 
 admin.site.unregister(User)

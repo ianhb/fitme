@@ -1,4 +1,4 @@
-"""fitme URL Configuration
+"""fitkick URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -22,14 +22,14 @@ import exercise.urls as exerciseurls
 import nutrition.urls as nutritionurls
 import other.urls as otherurls
 import supplementation.urls as supplementurls
-from fitme import test_settings
+from fitkick import test_settings
 from other import views
 
 urlpatterns = [
-    url(r'^$', views.account_home, name='home'),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include(otherurls)),
-    url(r'^exercise/', include(exerciseurls)),
-    url(r'^nutrition/', include(nutritionurls)),
-    url(r'^supplements/', include(supplementurls)),
+                  url(r'^$', views.account_home, name='home'),
+                  url(r'^admin/', admin.site.urls),
+                  url(r'^accounts/', include(otherurls)),
+                  url(r'^exercise/', include(exerciseurls)),
+                  url(r'^nutrition/', include(nutritionurls)),
+                  url(r'^supplements/', include(supplementurls)),
               ] + static(test_settings.MEDIA_URL, document_root=test_settings.MEDIA_ROOT)

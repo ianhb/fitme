@@ -1,7 +1,7 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 import exercise.models
@@ -107,9 +107,9 @@ def set_goals(request):
     context = {
         'goals': exercise.models.routine_type,
         'user': request.user,
-        'fitme_user': request.user.fitmeuser,
-        'feet': request.user.fitmeuser.height / 12,
-        'inch': request.user.fitmeuser.height % 12,
+        'fitkick_user': request.user.fitkickuser,
+        'feet': request.user.fitkickuser.height / 12,
+        'inch': request.user.fitkickuser.height % 12,
     }
     weights = WeightLog.objects.filter(user=request.user)
     bfs = BodyFatLog.objects.filter(user=request.user)

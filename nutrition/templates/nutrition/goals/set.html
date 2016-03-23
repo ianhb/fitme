@@ -24,11 +24,12 @@
         </tr>
         <tr>
             <td><label for="age">Age: </label></td>
-            <td><input readonly id="age" type="number" value="{{ fitme_user.age }}"></td>
+            <td><input readonly id="age" type="number" value="{{ fitkick_user.age }}"></td>
         </tr>
         <tr>
             <td><label for="gender">Gender: </label></td>
-            <td><input type="text" id="gender" readonly value="{{ fitme_user.get_gender_display|lower|capfirst }}"></td>
+            <td><input type="text" id="gender" readonly value="{{ fitkick_user.get_gender_display|lower|capfirst }}">
+            </td>
         </tr>
         <tr>
             <td><label for="weight">Weight: </label></td>

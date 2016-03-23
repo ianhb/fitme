@@ -2,8 +2,9 @@ db:
     restart: always
     image: postgres
     environment:
-        POSTGRES_USER: 810labs
-        POSTGRES_PASSWORD: fitmepass
+        POSTGRES_DATABASE: fitkick_postgres
+        POSTGRES_USER: ian
+        POSTGRES_PASSWORD: fitkick_db_password
     ports:
         - "5432:5432"
 web:

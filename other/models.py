@@ -10,7 +10,7 @@ genders = (
 
 
 # Create your models here.
-class FitMeUser(models.Model):
+class FitKickUser(models.Model):
     user = models.OneToOneField(User)
     age = models.IntegerField()
     height = models.IntegerField()
